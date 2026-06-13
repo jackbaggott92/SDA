@@ -162,7 +162,7 @@ class AnthroProvider extends ChangeNotifier {
   }
 
   void setWeight(double newWeight) {
-    _kg = newWeight;
+    _kg = newWeight.clamp(0, 200);
     notifyListeners();
   }
 

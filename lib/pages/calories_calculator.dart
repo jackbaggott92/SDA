@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:studenttoolboxv3/components/generic_slider.dart';
+import 'package:studenttoolboxv3/components/weight_slider.dart';
 import 'package:studenttoolboxv3/generic_components/generic_textfield.dart';
 import 'package:provider/provider.dart';
 import 'package:studenttoolboxv3/provider/anthro_provider.dart';
@@ -32,31 +33,7 @@ class _CaloriesCalculatorState extends State<CaloriesCalculator> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Text(
-              'Weight',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-            ),
-            GenericSlider(
-              title: provider.displayWeight,
-              onTitleTap: () => provider.cycleWeight(),
-              controller: weightController,
-              onTextChanged: (newWeight) => provider.setWeight(
-                double.tryParse(newWeight)?.clamp(0, 200) ?? 0,
-              ),
-              textFieldHintText: 'Enter weight in kg',
-              min: 0,
-              max: 200,
-              sliderValue: provider.kg,
-              onSliderChanged: (newWeight) => provider.setWeight(newWeight),
-              onLongPressDecrement: provider.startDecrementingWeight,
-              onLongPressDecrementUp: provider.stopDecrementingWeight,
-              onLongPressIncrement: provider.startIncrementingWeight,
-              onLongPressIncrementUp: provider.stopIncrementingWeight,
-              onDecrement: provider.decrementWeight,
-              onIncrement: provider.incrementWeight,
-              onChanged: (weight) =>
-                  provider.setWeight(double.tryParse(weight) ?? 0),
-            ),
+ WeightSlider(),
             SliderPal(),
             Padding(
               padding: const EdgeInsets.all(8.0),
