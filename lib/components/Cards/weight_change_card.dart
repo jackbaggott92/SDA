@@ -18,6 +18,7 @@ class _WeightChangeCardState extends State<WeightChangeCard> {
   Widget build(BuildContext context) {
     final provider = context.watch<AnthroProvider>();
     return ExpansionTile(
+      backgroundColor: const Color.fromARGB(255, 236, 228, 255),
       title: Text(
         'Weight Change and MUST',
         style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),

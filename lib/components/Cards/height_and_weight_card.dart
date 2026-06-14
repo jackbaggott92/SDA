@@ -17,6 +17,7 @@ class _HeightAndWeightCardState extends State<HeightAndWeightCard> {
   Widget build(BuildContext context) {
     final provider = context.watch<AnthroProvider>();
     return ExpansionTile(
+      backgroundColor: const Color.fromARGB(255, 249, 251, 225),
       title: Text('Weight and Height', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),),
       subtitle: Text(
         '${(provider.cm).toStringAsFixed(0)} cm, ${(provider.kg).toStringAsFixed(1)}kg, BMI: ${(provider.bmi).toStringAsFixed(2)}kg/m2',
