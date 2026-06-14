@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:studenttoolboxv3/pages/bmi_and_conversion.dart';
+import 'package:studenttoolboxv3/pages/card_stream.dart';
 import 'package:studenttoolboxv3/pages/must.dart';
 import 'package:studenttoolboxv3/pages/calories_calculator.dart';
 
@@ -49,6 +50,17 @@ class _HomePageState extends State<HomePage> {
                   MaterialPageRoute(builder: (context) => CaloriesCalculator()),
                 ),
                 child: Text('Calories Calculator'),
+              ),
+            ),
+          ),
+               Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(
+              child: ElevatedButton(
+                onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => CardStream()),
+                ),
+                child: Text('Card Stream'),
               ),
             ),
           ),

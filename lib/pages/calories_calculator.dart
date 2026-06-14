@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:studenttoolboxv3/components/generic_slider.dart';
 import 'package:studenttoolboxv3/components/weight_slider.dart';
-import 'package:studenttoolboxv3/generic_components/generic_textfield.dart';
+import 'package:studenttoolboxv3/components/generic_textfield.dart';
 import 'package:provider/provider.dart';
 import 'package:studenttoolboxv3/provider/anthro_provider.dart';
 import 'package:studenttoolboxv3/components/slider_pal.dart';
@@ -33,7 +33,7 @@ class _CaloriesCalculatorState extends State<CaloriesCalculator> {
       body: SingleChildScrollView(
         child: Column(
           children: [
- WeightSlider(),
+            WeightSlider(),
             SliderPal(),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -169,9 +169,8 @@ class _CaloriesCalculatorState extends State<CaloriesCalculator> {
                 ),
               ),
             ),
-            Text('Fluid: >60 yo ${(provider.kg*30).toStringAsFixed(0)}ml'),
-            Text('Fluid: <60 yo ${(provider.kg*35).toStringAsFixed(0)}ml')
-
+            Text('Fluid: >60 yo ${(provider.kg * 30).toStringAsFixed(0)}ml'),
+            Text('Fluid: <60 yo ${(provider.kg * 35).toStringAsFixed(0)}ml'),
           ],
         ),
       ),
