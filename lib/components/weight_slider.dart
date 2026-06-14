@@ -34,9 +34,9 @@ class _WeightSliderState extends State<WeightSlider> {
             sliderValue: provider.kg,
             onSliderChanged: (newWeight) => provider.setWeight(newWeight),
             onLongPressDecrement: provider.startDecrementingWeight,
-            onLongPressDecrementUp: provider.stopDecrementingWeight,
+            onLongPressDecrementRelease: provider.stopDecrementingWeight,
             onLongPressIncrement: provider.startIncrementingWeight,
-            onLongPressIncrementUp: provider.stopIncrementingWeight,
+            onLongPressIncrementRelease: provider.stopIncrementingWeight,
             onDecrement: provider.decrementWeight,
             onIncrement: provider.incrementWeight,
             onChanged: (weight) =>

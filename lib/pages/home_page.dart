@@ -53,13 +53,13 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-               Padding(
+          Padding(
             padding: const EdgeInsets.all(8.0),
             child: Center(
               child: ElevatedButton(
-                onPressed: () => Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => CardStream()),
-                ),
+                onPressed: () => Navigator.of(
+                  context,
+                ).push(MaterialPageRoute(builder: (context) => CardStream())),
                 child: Text('Card Stream'),
               ),
             ),

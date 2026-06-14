@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:studenttoolboxv3/components/generic_slider.dart';
-import 'package:studenttoolboxv3/components/weight_slider.dart';
 import 'package:studenttoolboxv3/components/generic_textfield.dart';
 import 'package:provider/provider.dart';
+import 'package:studenttoolboxv3/components/weight_slider.dart';
 import 'package:studenttoolboxv3/provider/anthro_provider.dart';
 import 'package:studenttoolboxv3/components/slider_pal.dart';
 
@@ -90,8 +90,8 @@ class _CaloriesCalculatorState extends State<CaloriesCalculator> {
                           provider.setCurrentCalories(newCurrent),
                       onLongPressDecrement: null,
                       onLongPressIncrement: null,
-                      onLongPressDecrementUp: null,
-                      onLongPressIncrementUp: null,
+                      onLongPressDecrementRelease: null,
+                      onLongPressIncrementRelease: null,
                       onDecrement: null,
                       onIncrement: null,
                       onChanged: (newCurrent) => provider.setCurrentCalories(
@@ -157,8 +157,8 @@ class _CaloriesCalculatorState extends State<CaloriesCalculator> {
                           provider.setCurrentProtein(newCurrent),
                       onLongPressDecrement: null,
                       onLongPressIncrement: null,
-                      onLongPressDecrementUp: null,
-                      onLongPressIncrementUp: null,
+                      onLongPressDecrementRelease: null,
+                      onLongPressIncrementRelease: null,
                       onDecrement: null,
                       onIncrement: null,
                       onChanged: (newCurrent) => provider.setCurrentProtein(

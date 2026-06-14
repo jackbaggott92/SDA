@@ -15,8 +15,8 @@ class GenericSlider extends StatefulWidget {
   final Function(double)? onSliderChanged;
   final Function()? onLongPressDecrement;
   final Function()? onLongPressIncrement;
-  final Function()? onLongPressDecrementUp;
-  final Function()? onLongPressIncrementUp;
+  final Function()? onLongPressDecrementRelease;
+  final Function()? onLongPressIncrementRelease;
   final Function()? onDecrement;
   final Function()? onIncrement;
   final Function(String)? onChanged;
@@ -37,8 +37,8 @@ class GenericSlider extends StatefulWidget {
     required this.onSliderChanged,
     required this.onLongPressDecrement,
     required this.onLongPressIncrement,
-    required this.onLongPressDecrementUp,
-    required this.onLongPressIncrementUp,
+    required this.onLongPressDecrementRelease,
+    required this.onLongPressIncrementRelease,
     required this.onDecrement,
     required this.onIncrement,
     required this.onChanged,
@@ -112,7 +112,7 @@ class _GenericSliderState extends State<GenericSlider> {
           children: [
             GestureDetector(
               onLongPress: widget.onLongPressDecrement,
-              onLongPressUp: widget.onLongPressDecrementUp,
+              onLongPressUp: widget.onLongPressDecrementRelease,
               child: IconButton(
                 onPressed: widget.onDecrement,
                 icon: Icon(Icons.remove),
@@ -120,7 +120,7 @@ class _GenericSliderState extends State<GenericSlider> {
             ),
             GestureDetector(
               onLongPress: widget.onLongPressIncrement,
-              onLongPressUp: widget.onLongPressIncrementUp,
+              onLongPressUp: widget.onLongPressIncrementRelease,
               child: IconButton(
                 onPressed: widget.onIncrement,
                 icon: Icon(Icons.add),

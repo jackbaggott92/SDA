@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studenttoolboxv3/components/bmi_slider.dart';
 import 'package:studenttoolboxv3/components/height_slider.dart';
-import 'package:studenttoolboxv3/provider/anthro_provider.dart';
 import 'package:studenttoolboxv3/components/weight_slider.dart';
+import 'package:studenttoolboxv3/provider/anthro_provider.dart';
 
 class BmiAndConversionPage extends StatefulWidget {
   const BmiAndConversionPage({super.key});

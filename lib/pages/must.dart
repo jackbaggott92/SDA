@@ -74,9 +74,11 @@ class _WeightChangePageState extends State<WeightChangePage> {
             onSliderChanged: (newPreviousWeight) =>
                 provider.setPreviousWeight(newPreviousWeight),
             onLongPressDecrement: provider.startDecrementingPreviousWeight,
-            onLongPressDecrementUp: provider.stopDecrementingPreviousWeight,
+            onLongPressDecrementRelease:
+                provider.stopDecrementingPreviousWeight,
             onLongPressIncrement: provider.startIncrementingPreviousWeight,
-            onLongPressIncrementUp: provider.stopIncrementingPreviousWeight,
+            onLongPressIncrementRelease:
+                provider.stopIncrementingPreviousWeight,
             onDecrement: provider.decrementPreviousWeight,
             onIncrement: provider.incrementPreviousWeight,
             onChanged: (previousWeight) => provider.setPreviousWeight(
