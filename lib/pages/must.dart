@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:studenttoolboxv3/components/generic_slider.dart';
-import 'package:studenttoolboxv3/components/height_slider.dart';
-import 'package:studenttoolboxv3/components/weight_slider.dart';
+import 'package:studenttoolboxv3/components/Fullsize/generic_slider.dart';
+import 'package:studenttoolboxv3/components/Fullsize/height_slider.dart';
+import 'package:studenttoolboxv3/components/Fullsize/weight_slider.dart';
 import 'package:studenttoolboxv3/provider/anthro_provider.dart';
 import 'package:provider/provider.dart';
 

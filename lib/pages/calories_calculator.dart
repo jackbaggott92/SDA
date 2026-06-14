@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:studenttoolboxv3/components/generic_slider.dart';
-import 'package:studenttoolboxv3/components/generic_textfield.dart';
+import 'package:studenttoolboxv3/components/Fullsize/generic_slider.dart';
+import 'package:studenttoolboxv3/components/Fullsize/generic_textfield.dart';
 import 'package:provider/provider.dart';
-import 'package:studenttoolboxv3/components/weight_slider.dart';
+import 'package:studenttoolboxv3/components/Fullsize/weight_slider.dart';
 import 'package:studenttoolboxv3/provider/anthro_provider.dart';
-import 'package:studenttoolboxv3/components/slider_pal.dart';
+import 'package:studenttoolboxv3/components/Fullsize/slider_pal.dart';
 
 class CaloriesCalculator extends StatefulWidget {
   const CaloriesCalculator({super.key});

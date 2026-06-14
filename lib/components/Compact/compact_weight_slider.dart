@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studenttoolboxv3/provider/anthro_provider.dart';
-import 'package:studenttoolboxv3/components/compact_generic_slider.dart';
+import 'package:studenttoolboxv3/components/Compact/compact_generic_slider.dart';
 
 
 class CompactWeightSlider extends StatefulWidget {

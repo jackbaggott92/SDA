@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:studenttoolboxv3/components/generic_textfield.dart';
+import 'package:studenttoolboxv3/components/Fullsize/generic_textfield.dart';
 
 
 class GenericSlider extends StatefulWidget {

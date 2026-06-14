@@ -1,28 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:studenttoolboxv3/components/generic_slider.dart';
 import 'package:provider/provider.dart';
 import 'package:studenttoolboxv3/provider/anthro_provider.dart';
+import 'package:studenttoolboxv3/components/Compact/compact_generic_slider.dart';
 
-class HeightSlider extends StatefulWidget {
-  const HeightSlider({super.key});
+class CompactHeightSlider extends StatefulWidget {
+  const CompactHeightSlider({super.key});
 
   @override
-  State<HeightSlider> createState() => _HeightSliderState();
+  State<CompactHeightSlider> createState() => _CompactHeightSliderState();
 }
 
-class _HeightSliderState extends State<HeightSlider> {
+class _CompactHeightSliderState extends State<CompactHeightSlider> {
   TextEditingController heightController = TextEditingController();
-  
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<AnthroProvider>();
     return Column(
       children: [
-        Text(
-          'Height',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-        ),
-        GenericSlider(
+        CompactGenericSlider(
+          sliderTitle: 'Height:',
           title: provider.displayHeight,
           onTitleTap: () => provider.cycleHeightUnit(),
           onTextChanged: (newHeight) => provider.setCm(
@@ -37,8 +33,8 @@ class _HeightSliderState extends State<HeightSlider> {
           onSliderChanged: (newCm) => provider.setCm(newCm.toInt()),
           onLongPressDecrement: () => provider.startDecrementingCm(),
           onLongPressIncrement: () => provider.startIncrementingCm(),
-          onLongPressDecrementRelease: () => provider.stopDecrementingCm(),
-          onLongPressIncrementRelease: () => provider.stopIncrementingCm(),
+          onLongPressDecrementUp: () => provider.stopDecrementingCm(),
+          onLongPressIncrementUp: () => provider.stopIncrementingCm(),
           onDecrement: () => provider.decrementCm(),
           onIncrement: () => provider.incrementCm(),
           onChanged: (heightCm) => provider.setCm(int.tryParse(heightCm) ?? 0),

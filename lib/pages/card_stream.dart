@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:studenttoolboxv3/components/bmi_slider.dart';
-import 'package:studenttoolboxv3/components/compact_height_slider.dart';
-import 'package:studenttoolboxv3/components/compact_weight_slider.dart';
-import 'package:studenttoolboxv3/provider/anthro_provider.dart';
-import 'package:provider/provider.dart';
+import 'package:studenttoolboxv3/components/Cards/height_and_weight_card.dart';
+import 'package:studenttoolboxv3/components/Cards/weight_change_card.dart';
 
 class CardStream extends StatefulWidget {
   const CardStream({super.key});
@@ -15,28 +12,17 @@ class CardStream extends StatefulWidget {
 class _CardStreamState extends State<CardStream> {
   @override
   Widget build(BuildContext context) {
-    final provider = context.watch<AnthroProvider>();
     return Scaffold(
       appBar: AppBar(actions: []),
-      body: Column(
-        children: [
-          ExpansionTile(
-            title: Text('Weight and Height'),
-            subtitle: Text(
-              '${(provider.cm).toStringAsFixed(0)} cm, ${(provider.kg).toStringAsFixed(1)}kg, BMI: ${(provider.bmi).toStringAsFixed(2)}',
-            ),
-            children: [
-              Column(
-                children: [
-                  CompactHeightSlider(),
-                  CompactWeightSlider(),
-                  Text('BMI: ${(provider.bmi).toStringAsFixed(2)}'),
-                  BmiSlider(),
-                ],
-              ),
-            ],
-          ),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            HeightAndWeightCard(),
+            WeightChangeCard(),
+
+        
+          ],
+        ),
       ),
     );
   }
