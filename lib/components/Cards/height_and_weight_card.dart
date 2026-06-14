@@ -19,7 +19,7 @@ class _HeightAndWeightCardState extends State<HeightAndWeightCard> {
     return ExpansionTile(
       title: Text('Weight and Height', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),),
       subtitle: Text(
-        '${(provider.cm).toStringAsFixed(0)} cm, ${(provider.kg).toStringAsFixed(1)}kg, BMI: ${(provider.bmi).toStringAsFixed(2)}',
+        '${(provider.cm).toStringAsFixed(0)} cm, ${(provider.kg).toStringAsFixed(1)}kg, BMI: ${(provider.bmi).toStringAsFixed(2)}kg/m2',
       ),
       children: [
         Column(
