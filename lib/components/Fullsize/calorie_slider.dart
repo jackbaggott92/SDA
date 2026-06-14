@@ -21,10 +21,10 @@ class _CalorieSliderState extends State<CalorieSlider> {
             children: [
               Column(
                 children: [
-                  Text('${provider.upperCalorieRange.toStringAsFixed(0)}'),
+                  Text(provider.upperCalorieRange.toStringAsFixed(0)),
                   SizedBox(height: 120),
 
-                  Text('${provider.lowerCalorieRange.toStringAsFixed(0)}'),
+                  Text(provider.lowerCalorieRange.toStringAsFixed(0)),
                 ],
               ),
               RotatedBox(

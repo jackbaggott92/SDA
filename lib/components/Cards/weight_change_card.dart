@@ -31,7 +31,7 @@ class _WeightChangeCardState extends State<WeightChangeCard> {
             CompactHeightSlider(),
             CompactWeightSlider(),
             CompactGenericSlider(
-              title: '${provider.displayPreviousWeight}',
+              title: provider.displayPreviousWeight,
               sliderTitle: 'Previous Weight',
               onTitleTap: () => provider.cyclePreviousWeight(),
               textFieldHintText: 'Previous weight in Kg',

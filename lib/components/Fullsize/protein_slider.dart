@@ -21,9 +21,9 @@ class _ProteinSliderState extends State<ProteinSlider> {
             children: [
               Column(
                 children: [
-                  Text('${provider.upperProteinRange.toStringAsFixed(0)}'),
+                  Text(provider.upperProteinRange.toStringAsFixed(0)),
                   SizedBox(height: 120),
-                  Text('${provider.lowerProteinRange.toStringAsFixed(0)}'),
+                  Text(provider.lowerProteinRange.toStringAsFixed(0)),
                 ],
               ),
               RotatedBox(
