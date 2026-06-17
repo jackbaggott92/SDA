@@ -336,12 +336,27 @@ class AnthroProvider extends ChangeNotifier {
   //--------------------------pal--------------------------
 
   double pal = 1;
+  String get displayPal{
+    if (pal >= 1 && pal <= 1.1) {
+      return 'In bed and immobile: Acute illness/injury/post-surgery';
+    } else if (pal > 1.1 && pal <= 1.2) {
+      return 'In bed and/or sitting out: Hospital ward/Care home/home';
+    } else if (pal > 1.2 && pal <= 1.25) {
+      return 'Limited mobility: Hospital ward/Care home w/ FT care';
+    } else if (pal > 1.25 && pal <= 1.4) {
+      return 'Sedentarty: Care home or at home\n ';
+    } else {
+      return 'Unknown';
+    }
+  }
 
   void setPal(double newPal) {
     pal = (newPal * 100).round() / 100;
     notifyListeners();
     print(pal);
   }
+
+
 
   //-----------------------------------------------------
   //---------------------calories----------------------

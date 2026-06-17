@@ -18,9 +18,11 @@ class _SliderPalState extends State<SliderPal> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+   
+
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 18.0),
-            child: Text('PAL: ${provider.pal}'),
+            child: Text('PAL: ${provider.pal}: \n${provider.displayPal}'),
           ),
           Slider(
             divisions: 40,
