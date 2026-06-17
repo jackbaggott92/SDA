@@ -344,7 +344,7 @@ class AnthroProvider extends ChangeNotifier {
     } else if (pal > 1.2 && pal <= 1.25) {
       return 'Limited mobility: Hospital ward/Care home w/ FT care';
     } else if (pal > 1.25 && pal <= 1.4) {
-      return 'Sedentarty: Care home or at home\n ';
+      return 'Sedentarty: Care home or at home';
     } else {
       return 'Unknown';
     }
