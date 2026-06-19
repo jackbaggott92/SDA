@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:studenttoolboxv3/pages/bmi_and_conversion.dart';
 import 'package:studenttoolboxv3/pages/card_stream.dart';
+import 'package:studenttoolboxv3/pages/intake_estimater.dart';
 import 'package:studenttoolboxv3/pages/must.dart';
 import 'package:studenttoolboxv3/pages/calories_calculator.dart';
 
@@ -61,6 +62,17 @@ class _HomePageState extends State<HomePage> {
                   context,
                 ).push(MaterialPageRoute(builder: (context) => CardStream())),
                 child: Text('Card Stream'),
+              ),
+            ),
+          ),
+                    Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(
+              child: ElevatedButton(
+                onPressed: () => Navigator.of(
+                  context,
+                ).push(MaterialPageRoute(builder: (context) => IntakeEstimater())),
+                child: Text('Intake Estimater'),
               ),
             ),
           ),

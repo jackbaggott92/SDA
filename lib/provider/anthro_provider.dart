@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:studenttoolboxv3/models/food_model.dart';
 
 enum Gender { male, female }
 
@@ -336,7 +337,7 @@ class AnthroProvider extends ChangeNotifier {
   //--------------------------pal--------------------------
 
   double pal = 1;
-  String get displayPal{
+  String get displayPal {
     if (pal >= 1 && pal <= 1.1) {
       return 'In bed and immobile: Acute illness/injury/post-surgery';
     } else if (pal > 1.1 && pal <= 1.2) {
@@ -355,8 +356,6 @@ class AnthroProvider extends ChangeNotifier {
     notifyListeners();
     print(pal);
   }
-
-
 
   //-----------------------------------------------------
   //---------------------calories----------------------
@@ -447,7 +446,7 @@ class AnthroProvider extends ChangeNotifier {
   //------------------------------------------------------------------
   //------------------------------MUST---------------------------------
 
- bool isCheckedIll = false;
+  bool isCheckedIll = false;
   bool isCheckedNoNutrition = false;
 
   void setIsCheckedIll(bool newValue) {
@@ -460,13 +459,13 @@ class AnthroProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-double get percentageWeightLoss {
-  if (previousKg == 0) return 0;
+  double get percentageWeightLoss {
+    if (previousKg == 0) return 0;
 
-  final loss = ((previousKg - kg) / previousKg) * 100;
+    final loss = ((previousKg - kg) / previousKg) * 100;
 
-  return loss < 0 ? 0 : loss;
-}
+    return loss < 0 ? 0 : loss;
+  }
 
   int get bmiMust => (bmi > 18.5 && bmi < 20)
       ? 1
@@ -478,7 +477,30 @@ double get percentageWeightLoss {
       : (percentageWeightLoss >= 5 && percentageWeightLoss <= 10)
       ? 1
       : 2;
-  int get acuteDiseaseEffectMust => isCheckedIll && isCheckedNoNutrition ? 2 : 0;
+  int get acuteDiseaseEffectMust =>
+      isCheckedIll && isCheckedNoNutrition ? 2 : 0;
 
   int get mustScore => bmiMust + unplannedMust + acuteDiseaseEffectMust;
+
+  //-----------------------------------------------------------------------//
+  //--------------------------estimated food intake-----------------------//
+
+  List<FoodModel> hospitalFoods = [
+    FoodModel(name: 'Food 1', fullCalories: 500, fullProtein: 20),
+    FoodModel(name: 'Food 2', fullCalories: 250, fullProtein: 10),
+  ];
+
+  List<FoodModel> patientIntake = [];
+
+  void addPatientFood (FoodModel food){
+    final newPatientIntake = [...patientIntake, food];
+
+    patientIntake = newPatientIntake;
+
+    notifyListeners();
+
+  }
+
+
+  
 }
