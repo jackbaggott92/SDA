@@ -14,7 +14,7 @@ class BmiSlider extends StatelessWidget {
       width: double.infinity,
       child: Stack(
         children: [
-          // BMI Category Bar
+
           Positioned(
             left: 15,
             right: 15,

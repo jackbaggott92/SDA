@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:studenttoolboxv3/components/Cards/Estimated_requirements_card.dart';
+import 'package:studenttoolboxv3/components/Cards/deficit.dart';
+import 'package:studenttoolboxv3/components/Cards/estimated_intake.dart';
 import 'package:studenttoolboxv3/components/Cards/height_and_weight_card.dart';
 import 'package:studenttoolboxv3/components/Cards/weight_change_card.dart';
 
@@ -20,6 +23,11 @@ class _CardStreamState extends State<CardStream> {
           children: [
                     HeightAndWeightCard(),
                     WeightChangeCard(),
+                    EstimatedRequirementsCard(),
+                    EstimatedIntake(),
+                    Deficit()
+
+
           ],
         ),
       ),
