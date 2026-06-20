@@ -3,13 +3,13 @@ import 'package:studenttoolboxv3/models/food_model.dart';
 import 'package:studenttoolboxv3/provider/anthro_provider.dart';
 import 'package:provider/provider.dart';
 
-class HospitalFood extends StatefulWidget {
+class HospitalFoodEaten extends StatefulWidget {
   final int index;
   final FoodModel food;
   final VoidCallback? onAdd;
   final bool showAddButton;
 
-  const HospitalFood({
+  const HospitalFoodEaten({
     super.key,
     required this.index,
     required this.food,
@@ -18,10 +18,10 @@ class HospitalFood extends StatefulWidget {
   });
 
   @override
-  State<HospitalFood> createState() => _HospitalFoodState();
+  State<HospitalFoodEaten> createState() => _HospitalFoodEatenState();
 }
 
-class _HospitalFoodState extends State<HospitalFood> {
+class _HospitalFoodEatenState extends State<HospitalFoodEaten> {
   String selectedAmount = '1.0';
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class _HospitalFoodState extends State<HospitalFood> {
           child: Column(
             children: [
               Container(
-                color: Colors.amberAccent,
+                color: const Color.fromARGB(255, 226, 251, 255),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,21 +51,7 @@ class _HospitalFoodState extends State<HospitalFood> {
                     ),
                     Row(
                       children: [
-                        SegmentedButton(
-                          showSelectedIcon: false,
-                          segments: const [
-                            ButtonSegment(value: '0.25', label: Text('1/4')),
-                            ButtonSegment(value: '0.50', label: Text('1/2')),
-                            ButtonSegment(value: '0.75', label: Text('3/4')),
-                            ButtonSegment(value: '1.0', label: Text('1')),
-                          ],
-                          selected: {selectedAmount},
-                          onSelectionChanged: (newSelection) {
-                            setState(() {
-                              selectedAmount = newSelection.first;
-                            });
-                          },
-                        ),
+
                       ],
                     ),
                   ],
@@ -80,21 +66,10 @@ class _HospitalFoodState extends State<HospitalFood> {
               if (widget.showAddButton)
                 IconButton(
                   onPressed: () {
-                    final fraction = double.parse(selectedAmount);
-
-                    final estimatedCalories = FoodModel(
-                      name: widget.food.name,
-                      fullCalories: widget.food.fullCalories * fraction,
-                      fullProtein: widget.food.fullProtein * fraction,
-                      portionEaten: fraction,
-                    );
-
-                    context.read<AnthroProvider>().addPatientFood(
-                      estimatedCalories,
-                    );
+                    context.read<AnthroProvider>().deletePatientFood(widget.index);
                   },
 
-                  icon: const Icon(Icons.add),
+                  icon: const Icon(Icons.delete),
                 ),
             ],
           ),

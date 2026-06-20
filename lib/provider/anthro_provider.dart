@@ -485,22 +485,57 @@ class AnthroProvider extends ChangeNotifier {
   //-----------------------------------------------------------------------//
   //--------------------------estimated food intake-----------------------//
 
-  List<FoodModel> hospitalFoods = [
-    FoodModel(name: 'Food 1', fullCalories: 500, fullProtein: 20),
-    FoodModel(name: 'Food 2', fullCalories: 250, fullProtein: 10),
+  List<FoodModel> hospitalBreakfast = [
+    FoodModel(name: 'Cereal', fullCalories: 250, fullProtein: 10),
+    FoodModel(name: 'Porridge/Read Brek', fullCalories: 400, fullProtein: 15),
+    FoodModel(name: 'Toast', fullCalories: 150, fullProtein: 3),
+  ];
+
+  List<FoodModel> hospitalMeals = [
+    FoodModel(name: 'Soup', fullCalories: 200, fullProtein: 8),
+    FoodModel(name: 'S/W', fullCalories: 300, fullProtein: 15),
+    FoodModel(name: 'Lunch Main', fullCalories: 500, fullProtein: 20),
+    FoodModel(name: 'Evening Main', fullCalories: 500, fullProtein: 20),
+    FoodModel(name: 'Hot Pudding', fullCalories: 300, fullProtein: 8),
+    FoodModel(name: 'Ice Cream', fullCalories: 150, fullProtein: 3),
+  ];
+
+  List<FoodModel> hospitalDrinks = [
+    FoodModel(name: 'Whole milk (~300ml)', fullCalories: 200, fullProtein: 5),
+    FoodModel(name: 'Tea/Coffe with milk', fullCalories: 20, fullProtein: 0),
+    FoodModel(name: 'Juice', fullCalories: 40, fullProtein: 0),
+  ];
+
+  List<FoodModel> hospitalSnacks = [
+    FoodModel(name: 'Yoghurt', fullCalories: 120, fullProtein: 5),
+    FoodModel(name: 'Cake', fullCalories: 200, fullProtein: 2),
+    FoodModel(name: 'Cheese & Crackers', fullCalories: 15, fullProtein: 6),
+    FoodModel(name: 'Crisps', fullCalories: 130, fullProtein: 0),
+  ];
+
+  List<FoodModel> hospitalONS = [
+    FoodModel(name: 'Ensure Compact', fullCalories: 300, fullProtein: 12.8, volume: 125, iddsi: 2),
+    FoodModel(name: 'Ensure Plus Juce', fullCalories: 330, fullProtein: 10.6, volume: 220, iddsi: 1)
+
   ];
 
   List<FoodModel> patientIntake = [];
 
-  void addPatientFood (FoodModel food){
+  double get totalCalories =>
+      patientIntake.fold(0, (sum, food) => sum + food.fullCalories);
+  double get totalProtein =>
+      patientIntake.fold(0, (sum, food) => sum + food.fullProtein);
+
+  void addPatientFood(FoodModel food) {
     final newPatientIntake = [...patientIntake, food];
-
     patientIntake = newPatientIntake;
-
     notifyListeners();
-
   }
 
-
-  
+  void deletePatientFood(int index) {
+    final newPatientIntake = [...patientIntake];
+    newPatientIntake.removeAt(index);
+    patientIntake = newPatientIntake;
+    notifyListeners();
+  }
 }
