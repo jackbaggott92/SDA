@@ -515,7 +515,15 @@ class AnthroProvider extends ChangeNotifier {
 
   List<FoodModel> hospitalONS = [
     FoodModel(name: 'Ensure Compact', fullCalories: 300, fullProtein: 12.8, volume: 125, iddsi: 2),
-    FoodModel(name: 'Ensure Plus Juce', fullCalories: 330, fullProtein: 10.6, volume: 220, iddsi: 1)
+    FoodModel(name: 'Ensure Plus Juce', fullCalories: 330, fullProtein: 10.6, volume: 220, iddsi: 1),
+    FoodModel(name: 'Ensure Plus MS', fullCalories: 300, fullProtein: 12.5, volume: 200, iddsi: 0),
+    FoodModel(name: 'Ensure Plus Advance', fullCalories: 330, fullProtein: 20, volume: 220, iddsi: 1),
+    FoodModel(name: 'ActaSolve Smoothie', fullCalories: 300, fullProtein: 10.7, volume: 150, iddsi: 2),
+    FoodModel(name: 'Ensure TwoCal', fullCalories: 400, fullProtein: 16.8, volume: 200, iddsi: 1),
+    FoodModel(name: 'Fresubin Thick L2', fullCalories: 300, fullProtein: 20, volume: 200, iddsi: 2),
+    FoodModel(name: 'Fresubin Thick L3', fullCalories: 300, fullProtein: 20, volume: 200, iddsi: 3),
+    FoodModel(name: 'ProSource Plus', fullCalories: 100, fullProtein: 15, volume: 30),
+    FoodModel(name: 'Pro-Cal shot', fullCalories: 100, fullProtein: 2, volume: 30, iddsi: 3)
 
   ];
 

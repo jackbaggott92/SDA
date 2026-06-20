@@ -33,7 +33,7 @@ class _HospitalFoodState extends State<HospitalFood> {
           child: Column(
             children: [
               Container(
-                color: Colors.amberAccent,
+                color: const Color.fromARGB(255, 189, 223, 255),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.start,
