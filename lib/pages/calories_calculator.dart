@@ -53,7 +53,9 @@ class _CaloriesCalculatorState extends State<CaloriesCalculator> {
         child: Column(
           children: [
             WeightSlider(),
+            Text('weight: ${provider.kg}kg'),
             SliderPal(),
+            Text('PAL: ${provider.pal}'),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
@@ -97,13 +99,14 @@ class _CaloriesCalculatorState extends State<CaloriesCalculator> {
                         fontWeight: FontWeight.w500,
                       ),
                     ),
+                    Text('lowercalories: ${provider.lowerCalorieRange} uppercalories: ${provider.upperCalorieRange}'),
                     GenericSlider(
                       title:
                           '${provider.currentCalories.toStringAsFixed(0)} kcal',
                       textFieldHintText: 'Select caloires',
                       controller: selectedCalories,
-                      min: provider.lowerCalorieRange,
-                      max: provider.upperCalorieRange,
+                      min: provider.lowerCalorieRange.toDouble(),
+                      max: provider.upperCalorieRange.toDouble(),
                       sliderValue: provider.safeCurrentCalories,
                       onSliderChanged: (newCurrent) =>
                           provider.setCurrentCalories(newCurrent),

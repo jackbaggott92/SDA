@@ -55,7 +55,7 @@ class AnthroProvider extends ChangeNotifier {
   int _cm = 0;
   int get cm => _cm;
 
-  void clearHeight(){
+  void clearHeight() {
     _cm = 0;
     notifyListeners();
   }
@@ -167,13 +167,13 @@ class AnthroProvider extends ChangeNotifier {
     }
   }
 
-  void clearWeight(){
+  void clearWeight() {
     _kg = 0;
     notifyListeners();
   }
 
   void setWeight(double newWeight) {
-    _kg = newWeight.clamp(0, 200);
+    _kg = double.parse(newWeight.clamp(0, 200).toStringAsFixed(1));
     notifyListeners();
   }
 
@@ -197,7 +197,7 @@ class AnthroProvider extends ChangeNotifier {
 
   void incrementWeight() {
     if (_kg < 200) {
-      _kg += stepSize;
+      _kg = double.parse((_kg + stepSize).toStringAsFixed(1));
     }
 
     notifyListeners();
@@ -210,7 +210,7 @@ class AnthroProvider extends ChangeNotifier {
     while (_isIncrementing) {
       await Future.delayed(const Duration(milliseconds: 50));
       if (_kg < 200) {
-        _kg += stepSize;
+        _kg = double.parse((_kg + stepSize).toStringAsFixed(1));
         notifyListeners();
       }
     }
@@ -221,7 +221,7 @@ class AnthroProvider extends ChangeNotifier {
   }
 
   void decrementWeight() {
-    _kg = (_kg - stepSize).clamp(0, double.infinity);
+    _kg = double.parse(((_kg - stepSize).clamp(0, 200)).toStringAsFixed(1));
     notifyListeners();
   }
 
@@ -232,7 +232,7 @@ class AnthroProvider extends ChangeNotifier {
     while (_isDecrementing) {
       await Future.delayed(const Duration(milliseconds: 50));
       if (_kg > 0) {
-        _kg -= stepSize;
+        _kg = double.parse(((_kg - stepSize).clamp(0, 200)).toStringAsFixed(1));
         notifyListeners();
       }
     }
@@ -264,15 +264,17 @@ class AnthroProvider extends ChangeNotifier {
     }
   }
 
-  void clearPreviousWeight(){
+  void clearPreviousWeight() {
     _previousKg = 0;
     notifyListeners();
   }
 
-  void setPreviousWeight(double newPreviousWeight) {
-    _previousKg = newPreviousWeight;
-    notifyListeners();
-  }
+void setPreviousWeight(double newPreviousWeight) {
+  _previousKg = double.parse(
+    newPreviousWeight.clamp(0, 200).toStringAsFixed(1),
+  );
+  notifyListeners();
+}
 
   void cyclePreviousWeight() {
     final values = Weight.values;
@@ -294,7 +296,9 @@ class AnthroProvider extends ChangeNotifier {
 
   void incrementPreviousWeight() {
     if (_previousKg < 200) {
-      _previousKg += previousStepSize;
+      _previousKg = double.parse(
+  (_previousKg + previousStepSize).toStringAsFixed(1),
+);
     }
     notifyListeners();
   }
@@ -306,7 +310,9 @@ class AnthroProvider extends ChangeNotifier {
     while (_isIncrementingPrevious) {
       await Future.delayed(const Duration(milliseconds: 50));
       if (_previousKg < 200) {
-        _previousKg += previousStepSize;
+        _previousKg = double.parse(
+  (_previousKg + previousStepSize).toStringAsFixed(1),
+);
         notifyListeners();
       }
     }
@@ -317,7 +323,9 @@ class AnthroProvider extends ChangeNotifier {
   }
 
   void decrementPreviousWeight() {
-    _previousKg = (_previousKg - previousStepSize).clamp(0, double.infinity);
+    _previousKg = double.parse(
+  ((_previousKg - previousStepSize).clamp(0, 200)).toStringAsFixed(1),
+);
     notifyListeners();
   }
 
@@ -328,7 +336,9 @@ class AnthroProvider extends ChangeNotifier {
     while (_isDecrementingPrevious) {
       await Future.delayed(const Duration(milliseconds: 50));
       if (_previousKg > 0) {
-        _previousKg -= previousStepSize;
+        _previousKg = double.parse(
+  ((_previousKg - previousStepSize).clamp(0, 200)).toStringAsFixed(1),
+);
         notifyListeners();
       }
     }
@@ -366,7 +376,7 @@ class AnthroProvider extends ChangeNotifier {
     }
   }
 
-  void clearPal(){
+  void clearPal() {
     pal = 1;
     notifyListeners();
   }
@@ -385,14 +395,17 @@ class AnthroProvider extends ChangeNotifier {
   double currentCalories = 0;
 
   double get lowerCalorieRange => (_kg * pal * calories);
-  double get upperCalorieRange =>
-      ((_kg * pal * upperCalories) < lowerCalorieRange)
-      ? lowerCalorieRange + 1
-      : (_kg * pal * upperCalories + 1);
+  double get upperCalorieRange {
+    final upper = _kg * pal * upperCalories;
+    final lower = lowerCalorieRange;
+
+    return upper < lower ? lower : upper;
+  }
+
   double get safeCurrentCalories =>
       currentCalories.clamp(lowerCalorieRange, upperCalorieRange);
 
-  void clearCalories(){
+  void clearCalories() {
     calories = 0;
     upperCalories = 0;
     currentCalories = 0;
@@ -444,7 +457,7 @@ class AnthroProvider extends ChangeNotifier {
   double get distributionKcal => upperCalorieRange - currentProteinKcal;
   double get safeDistributionKcal => distributionKcal.clamp(0, double.infinity);
 
-  void clearProtein(){
+  void clearProtein() {
     lowerProtein = 0;
     upperProtein = 0;
     currentProtein = 0;
@@ -482,7 +495,7 @@ class AnthroProvider extends ChangeNotifier {
   bool isCheckedIll = false;
   bool isCheckedNoNutrition = false;
 
-  void clearMust(){
+  void clearMust() {
     isCheckedIll = false;
     isCheckedNoNutrition = false;
     notifyListeners();
@@ -553,29 +566,85 @@ class AnthroProvider extends ChangeNotifier {
   ];
 
   List<FoodModel> hospitalONS = [
-    FoodModel(name: 'Ensure Compact', fullCalories: 300, fullProtein: 12.8, volume: 125, iddsi: 2),
-    FoodModel(name: 'Ensure Plus Juce', fullCalories: 330, fullProtein: 10.6, volume: 220, iddsi: 1),
-    FoodModel(name: 'Ensure Plus MS', fullCalories: 300, fullProtein: 12.5, volume: 200, iddsi: 0),
-    FoodModel(name: 'Ensure Plus Advance', fullCalories: 330, fullProtein: 20, volume: 220, iddsi: 1),
-    FoodModel(name: 'ActaSolve Smoothie', fullCalories: 300, fullProtein: 10.7, volume: 150, iddsi: 2),
-    FoodModel(name: 'Ensure TwoCal', fullCalories: 400, fullProtein: 16.8, volume: 200, iddsi: 1),
-    FoodModel(name: 'Fresubin Thick L2', fullCalories: 300, fullProtein: 20, volume: 200, iddsi: 2),
-    FoodModel(name: 'Fresubin Thick L3', fullCalories: 300, fullProtein: 20, volume: 200, iddsi: 3),
-    FoodModel(name: 'ProSource Plus', fullCalories: 100, fullProtein: 15, volume: 30),
-    FoodModel(name: 'Pro-Cal shot', fullCalories: 100, fullProtein: 2, volume: 30, iddsi: 3)
-
+    FoodModel(
+      name: 'Ensure Compact',
+      fullCalories: 300,
+      fullProtein: 12.8,
+      volume: 125,
+      iddsi: 2,
+    ),
+    FoodModel(
+      name: 'Ensure Plus Juce',
+      fullCalories: 330,
+      fullProtein: 10.6,
+      volume: 220,
+      iddsi: 1,
+    ),
+    FoodModel(
+      name: 'Ensure Plus MS',
+      fullCalories: 300,
+      fullProtein: 12.5,
+      volume: 200,
+      iddsi: 0,
+    ),
+    FoodModel(
+      name: 'Ensure Plus Advance',
+      fullCalories: 330,
+      fullProtein: 20,
+      volume: 220,
+      iddsi: 1,
+    ),
+    FoodModel(
+      name: 'ActaSolve Smoothie',
+      fullCalories: 300,
+      fullProtein: 10.7,
+      volume: 150,
+      iddsi: 2,
+    ),
+    FoodModel(
+      name: 'Ensure TwoCal',
+      fullCalories: 400,
+      fullProtein: 16.8,
+      volume: 200,
+      iddsi: 1,
+    ),
+    FoodModel(
+      name: 'Fresubin Thick L2',
+      fullCalories: 300,
+      fullProtein: 20,
+      volume: 200,
+      iddsi: 2,
+    ),
+    FoodModel(
+      name: 'Fresubin Thick L3',
+      fullCalories: 300,
+      fullProtein: 20,
+      volume: 200,
+      iddsi: 3,
+    ),
+    FoodModel(
+      name: 'ProSource Plus',
+      fullCalories: 100,
+      fullProtein: 15,
+      volume: 30,
+    ),
+    FoodModel(
+      name: 'Pro-Cal shot',
+      fullCalories: 100,
+      fullProtein: 2,
+      volume: 30,
+      iddsi: 3,
+    ),
   ];
 
   List<FoodModel> patientIntake = [];
-
-
 
   double get totalCalories =>
       patientIntake.fold(0, (sum, food) => sum + food.fullCalories);
   double get totalProtein =>
       patientIntake.fold(0, (sum, food) => sum + food.fullProtein);
 
-  void clearPatientIntake  (){
+  void clearPatientIntake() {
     patientIntake = [];
     notifyListeners();
   }

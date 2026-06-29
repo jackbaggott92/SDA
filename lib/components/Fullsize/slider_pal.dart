@@ -31,7 +31,7 @@ class _SliderPalState extends State<SliderPal> {
             value: provider.pal,
             onChanged: (value) {
               provider.setPal(value);
-              provider.setCurrentCalories(provider.lowerCalorieRange);
+              provider.setCurrentCalories(provider.lowerCalorieRange.toDouble());
             },
           ),
         ],

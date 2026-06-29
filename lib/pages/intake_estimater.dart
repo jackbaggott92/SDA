@@ -276,8 +276,8 @@ class _IntakeEstimaterState extends State<IntakeEstimater> {
                         '${provider.currentCalories.toStringAsFixed(0)} kcal',
                     textFieldHintText: 'Select caloires',
                     controller: selectedCalories,
-                    min: provider.lowerCalorieRange,
-                    max: provider.upperCalorieRange,
+                    min: provider.lowerCalorieRange.toDouble(),
+                    max: provider.upperCalorieRange.toDouble(),
                     sliderValue: provider.safeCurrentCalories,
                     onSliderChanged: (newCurrent) =>
                         provider.setCurrentCalories(newCurrent),
