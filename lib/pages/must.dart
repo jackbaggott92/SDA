@@ -24,6 +24,7 @@ class _WeightChangePageState extends State<WeightChangePage> {
       appBar: AppBar(
         title: Text('MUST Calculator'),
         actions: [
+          IconButton(onPressed: (){provider.clearHeight(); provider.clearWeight(); provider.clearPreviousWeight(); provider.clearMust();}, icon: Icon(Icons.refresh)),
           IconButton(
             onPressed: () => showDialog(
               context: context,

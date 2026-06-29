@@ -25,6 +25,7 @@ class _BmiAndConversionPageState extends State<BmiAndConversionPage> {
       appBar: AppBar(
         title: Text('BMI and Conversion'),
         actions: [
+          IconButton(onPressed: () {provider.clearHeight(); provider.clearWeight();}, icon: Icon(Icons.refresh)),
           IconButton(
             onPressed: () => showDialog(
               context: context,

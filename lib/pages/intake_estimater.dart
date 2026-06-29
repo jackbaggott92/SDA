@@ -29,7 +29,7 @@ class _IntakeEstimaterState extends State<IntakeEstimater> {
   Widget build(BuildContext context) {
     final provider = context.watch<AnthroProvider>();
     return Scaffold(
-      appBar: AppBar(actions: []),
+      appBar: AppBar(actions: [IconButton(onPressed: provider.clearPatientIntake, icon: Icon(Icons.refresh))]),
       body: ListView(
         padding: EdgeInsets.zero,
         children: [

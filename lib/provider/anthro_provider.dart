@@ -55,6 +55,11 @@ class AnthroProvider extends ChangeNotifier {
   int _cm = 0;
   int get cm => _cm;
 
+  void clearHeight(){
+    _cm = 0;
+    notifyListeners();
+  }
+
   String get displayHeight {
     if (_heightUnits == Height.cm) {
       return '$_cm cm';
@@ -162,6 +167,11 @@ class AnthroProvider extends ChangeNotifier {
     }
   }
 
+  void clearWeight(){
+    _kg = 0;
+    notifyListeners();
+  }
+
   void setWeight(double newWeight) {
     _kg = newWeight.clamp(0, 200);
     notifyListeners();
@@ -252,6 +262,11 @@ class AnthroProvider extends ChangeNotifier {
       case Weight.lb:
         return 0.453592; // 1 lb
     }
+  }
+
+  void clearPreviousWeight(){
+    _previousKg = 0;
+    notifyListeners();
   }
 
   void setPreviousWeight(double newPreviousWeight) {
@@ -351,6 +366,11 @@ class AnthroProvider extends ChangeNotifier {
     }
   }
 
+  void clearPal(){
+    pal = 1;
+    notifyListeners();
+  }
+
   void setPal(double newPal) {
     pal = (newPal * 100).round() / 100;
     notifyListeners();
@@ -371,6 +391,13 @@ class AnthroProvider extends ChangeNotifier {
       : (_kg * pal * upperCalories + 1);
   double get safeCurrentCalories =>
       currentCalories.clamp(lowerCalorieRange, upperCalorieRange);
+
+  void clearCalories(){
+    calories = 0;
+    upperCalories = 0;
+    currentCalories = 0;
+    notifyListeners();
+  }
 
   void setCalories(int newCalories) {
     calories = newCalories;
@@ -417,6 +444,12 @@ class AnthroProvider extends ChangeNotifier {
   double get distributionKcal => upperCalorieRange - currentProteinKcal;
   double get safeDistributionKcal => distributionKcal.clamp(0, double.infinity);
 
+  void clearProtein(){
+    lowerProtein = 0;
+    upperProtein = 0;
+    currentProtein = 0;
+  }
+
   void setLowerProtein(double newProtein) {
     lowerProtein = newProtein;
     currentProtein = currentProtein.clamp(lowerProteinRange, upperProteinRange);
@@ -448,6 +481,12 @@ class AnthroProvider extends ChangeNotifier {
 
   bool isCheckedIll = false;
   bool isCheckedNoNutrition = false;
+
+  void clearMust(){
+    isCheckedIll = false;
+    isCheckedNoNutrition = false;
+    notifyListeners();
+  }
 
   void setIsCheckedIll(bool newValue) {
     isCheckedIll = newValue;
@@ -529,10 +568,17 @@ class AnthroProvider extends ChangeNotifier {
 
   List<FoodModel> patientIntake = [];
 
+
+
   double get totalCalories =>
       patientIntake.fold(0, (sum, food) => sum + food.fullCalories);
   double get totalProtein =>
       patientIntake.fold(0, (sum, food) => sum + food.fullProtein);
+
+  void clearPatientIntake  (){
+    patientIntake = [];
+    notifyListeners();
+  }
 
   void addPatientFood(FoodModel food) {
     final newPatientIntake = [...patientIntake, food];

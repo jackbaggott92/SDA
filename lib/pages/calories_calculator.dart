@@ -29,7 +29,26 @@ class _CaloriesCalculatorState extends State<CaloriesCalculator> {
   Widget build(BuildContext context) {
     final provider = context.watch<AnthroProvider>();
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () {
+              provider.clearWeight();
+              provider.clearPal();
+              provider.clearProtein();
+              provider.clearCalories();
+              lowerCaloriesController.clear();
+              upperCaloriesController.clear();
+              lowerProteinController.clear();
+              upperProteinController.clear();
+              selectedCalories.clear();
+              weightController.clear();
+              proteinController.clear();
+            },
+            icon: Icon(Icons.refresh),
+          ),
+        ],
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -171,7 +190,6 @@ class _CaloriesCalculatorState extends State<CaloriesCalculator> {
             ),
             Text('Fluid: >60 yo ${(provider.kg * 30).toStringAsFixed(0)}ml'),
             Text('Fluid: <60 yo ${(provider.kg * 35).toStringAsFixed(0)}ml'),
-       
           ],
         ),
       ),
