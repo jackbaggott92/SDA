@@ -236,7 +236,7 @@ class _EstimatedRequirementsCardState extends State<EstimatedRequirementsCard> {
                 ),
               ],
             ),
-            FloatingActionButton(onPressed: null, child: Icon(Icons.refresh),),
+            
           ],
         );
       
