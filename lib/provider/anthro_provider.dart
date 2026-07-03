@@ -9,29 +9,87 @@ enum Height { cm, ft }
 enum Weight { kg, lb, st }
 
 class AnthroProvider extends ChangeNotifier {
+  void clearAll() {
+    clearCalories();
+    clearHeight();
+    clearMust();
+    clearPal();
+    clearPatientIntake();
+    clearPreviousWeight();
+    clearProtein();
+    clearWeight();
+    notifyListeners();
+  }
+
   //----------------------------Age-------------------------//
 
-  int _age = 0;
+  int _age = 18;
   int get age => _age;
 
+  bool _isDecrementingAge = false;
+  bool _isIncrementingAge = false;
+
+  void clearAge() {
+    _age = 18;
+    notifyListeners();
+  }
+
   void setAge(int newAge) {
-    _age = newAge;
+    if (newAge > 18 && newAge <121) {
+      _age = newAge;
+    } else {
+      return;
+    }
     notifyListeners();
     print(_age);
   }
 
   void incrementAge() {
-    if (_age < 130) {
+    if (_age < 120) {
       _age++;
       notifyListeners();
     }
   }
 
   void decrementAge() {
-    if (_age > 0) {
+    if (_age > 18) {
       _age--;
       notifyListeners();
     }
+  }
+
+  void startIncrementingAge() async {
+    _isIncrementingAge = true;
+    while (_isIncrementingAge) {
+      await Future.delayed(const Duration(milliseconds: 100));
+      if (_age < 120) {
+        _age++;
+        notifyListeners();
+      } else {
+        break;
+      }
+    }
+  }
+
+  void stopIncrementingAge() {
+    _isIncrementingAge = false;
+  }
+
+  void startDecrementingAge() async {
+    _isDecrementingAge = true;
+    while (_isDecrementingAge) {
+      await Future.delayed(const Duration(milliseconds: 100));
+      if (_age > 18) {
+        _age--;
+        notifyListeners();
+      } else {
+        break;
+      }
+    }
+  }
+  
+  void stopDecrementingAge(){
+    _isDecrementingAge = false;
   }
 
   //----------------------------------------------------------
@@ -269,12 +327,12 @@ class AnthroProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-void setPreviousWeight(double newPreviousWeight) {
-  _previousKg = double.parse(
-    newPreviousWeight.clamp(0, 200).toStringAsFixed(1),
-  );
-  notifyListeners();
-}
+  void setPreviousWeight(double newPreviousWeight) {
+    _previousKg = double.parse(
+      newPreviousWeight.clamp(0, 200).toStringAsFixed(1),
+    );
+    notifyListeners();
+  }
 
   void cyclePreviousWeight() {
     final values = Weight.values;
@@ -297,8 +355,8 @@ void setPreviousWeight(double newPreviousWeight) {
   void incrementPreviousWeight() {
     if (_previousKg < 200) {
       _previousKg = double.parse(
-  (_previousKg + previousStepSize).toStringAsFixed(1),
-);
+        (_previousKg + previousStepSize).toStringAsFixed(1),
+      );
     }
     notifyListeners();
   }
@@ -311,8 +369,8 @@ void setPreviousWeight(double newPreviousWeight) {
       await Future.delayed(const Duration(milliseconds: 50));
       if (_previousKg < 200) {
         _previousKg = double.parse(
-  (_previousKg + previousStepSize).toStringAsFixed(1),
-);
+          (_previousKg + previousStepSize).toStringAsFixed(1),
+        );
         notifyListeners();
       }
     }
@@ -324,8 +382,8 @@ void setPreviousWeight(double newPreviousWeight) {
 
   void decrementPreviousWeight() {
     _previousKg = double.parse(
-  ((_previousKg - previousStepSize).clamp(0, 200)).toStringAsFixed(1),
-);
+      ((_previousKg - previousStepSize).clamp(0, 200)).toStringAsFixed(1),
+    );
     notifyListeners();
   }
 
@@ -337,8 +395,8 @@ void setPreviousWeight(double newPreviousWeight) {
       await Future.delayed(const Duration(milliseconds: 50));
       if (_previousKg > 0) {
         _previousKg = double.parse(
-  ((_previousKg - previousStepSize).clamp(0, 200)).toStringAsFixed(1),
-);
+          ((_previousKg - previousStepSize).clamp(0, 200)).toStringAsFixed(1),
+        );
         notifyListeners();
       }
     }
@@ -394,6 +452,9 @@ void setPreviousWeight(double newPreviousWeight) {
   int upperCalories = 0;
   double currentCalories = 0;
 
+  double get mifflinMale => (((10*_kg)+(6.25*_cm)-(5*_age)+5)*pal); 
+  double get mifflinFemale =>(((10*_kg)+(6.25*_cm)-(5*_age)-161)*pal);
+
   double get lowerCalorieRange => (_kg * pal * calories);
   double get upperCalorieRange {
     final upper = _kg * pal * upperCalories;
@@ -405,10 +466,13 @@ void setPreviousWeight(double newPreviousWeight) {
   double get safeCurrentCalories =>
       currentCalories.clamp(lowerCalorieRange, upperCalorieRange);
 
+  bool isMifflin = false;
+
   void clearCalories() {
     calories = 0;
     upperCalories = 0;
     currentCalories = 0;
+    isMifflin = false;
     notifyListeners();
   }
 
@@ -438,6 +502,13 @@ void setPreviousWeight(double newPreviousWeight) {
     print(currentCalories);
   }
 
+  void setMifflin(){
+    isMifflin = !isMifflin;
+    notifyListeners();
+  }
+
+  
+
   //----------------------------------------------------------------------------
   //----------------------------------Protein-------------------------------------
 
@@ -445,10 +516,22 @@ void setPreviousWeight(double newPreviousWeight) {
   double upperProtein = 0;
   double currentProtein = 0;
 
-  double get lowerProteinRange => lowerProtein * _kg;
-  double get upperProteinRange => ((upperProtein * _kg) < lowerProteinRange)
-      ? lowerProteinRange + 0.001
-      : (_kg * upperProtein + 0.001);
+  bool minus25Percent = false;
+  bool minus35Percent = false;
+
+  double get lowerProteinRange => (minus25Percent == true) ? (lowerProtein * _kg)*0.75 : (minus35Percent==true) ? (lowerProtein*_kg)*0.65 : lowerProtein*_kg;
+  double get upperProteinRange {
+  double lower = lowerProteinRange;
+
+  double upper = (minus25Percent)
+      ? (upperProtein * _kg) * 0.75
+      : (minus35Percent)
+          ? (upperProtein * _kg) * 0.65
+          : upperProtein * _kg;
+
+  return upper < lower ? lower : upper;
+}
+  
   double get safeCurrentProtein =>
       currentProtein.clamp(lowerProteinRange, upperProteinRange);
 
@@ -457,22 +540,40 @@ void setPreviousWeight(double newPreviousWeight) {
   double get distributionKcal => upperCalorieRange - currentProteinKcal;
   double get safeDistributionKcal => distributionKcal.clamp(0, double.infinity);
 
+ 
+
+  void setMinus25Percent(){
+    minus25Percent = !minus25Percent;
+    minus35Percent = false;
+    notifyListeners();
+  }
+
+  void setMinus35Percent(){
+    minus35Percent = !minus35Percent;
+    minus25Percent=false;
+    notifyListeners();
+  }
+
   void clearProtein() {
     lowerProtein = 0;
     upperProtein = 0;
     currentProtein = 0;
+    minus25Percent = false;
+    minus35Percent = false;
+    
+    notifyListeners();
   }
 
   void setLowerProtein(double newProtein) {
     lowerProtein = newProtein;
-    currentProtein = currentProtein.clamp(lowerProteinRange, upperProteinRange);
+    currentProtein = safeCurrentProtein.clamp(lowerProteinRange, upperProteinRange);
     notifyListeners();
     print(lowerProtein);
   }
 
   void setUpperProtein(double newProtein) {
     upperProtein = newProtein;
-    currentProtein = currentProtein.clamp(lowerProteinRange, upperProteinRange);
+    currentProtein = safeCurrentProtein.clamp(lowerProteinRange, upperProteinRange);
     notifyListeners();
     print(upperProtein);
   }
@@ -486,7 +587,7 @@ void setPreviousWeight(double newPreviousWeight) {
   //-----------------------------------------------------------------------
   //------------------------------fluid-----------------------------------
 
-  int get fluidRecomendation => (_age > 60) ? 30 : 35;
+  int get fluidRecomendation => (_age > 59) ? 30 : 35;
   double get fluidRequirement => (fluidRecomendation * _kg);
 
   //------------------------------------------------------------------

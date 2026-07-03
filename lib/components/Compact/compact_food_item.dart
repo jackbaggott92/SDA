@@ -34,8 +34,8 @@ class _CompactFoodItemState extends State<CompactFoodItem> {
           child: Row(
             children: [
               Slider(
-                divisions: 3,
-                min: 0.25,
+                divisions: 4,
+                min: 0.0,
                 max: 1,
                 value: selectedAmount,
                 onChanged: (value) {

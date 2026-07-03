@@ -49,8 +49,7 @@ class _HospitalFoodEatenState extends State<HospitalFoodEaten> {
                         'Calories: ${food.fullCalories}, Protein: ${food.fullProtein}, Portion Eaten: ${food.portionEaten}',
                       ),
                     ),
-                    Row(
-                      children: [
+                    Row(children: [
 
                       ],
                     ),
@@ -66,7 +65,9 @@ class _HospitalFoodEatenState extends State<HospitalFoodEaten> {
               if (widget.showAddButton)
                 IconButton(
                   onPressed: () {
-                    context.read<AnthroProvider>().deletePatientFood(widget.index);
+                    context.read<AnthroProvider>().deletePatientFood(
+                      widget.index,
+                    );
                   },
 
                   icon: const Icon(Icons.delete),

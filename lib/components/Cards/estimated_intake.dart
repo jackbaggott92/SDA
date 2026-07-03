@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studenttoolboxv3/components/Compact/compact_food_eaten.dart';
 import 'package:studenttoolboxv3/components/Compact/compact_food_item.dart';
-import 'package:studenttoolboxv3/components/Compact/compact_weight_slider.dart';
-import 'package:studenttoolboxv3/components/Fullsize/generic_textfield.dart';
 import 'package:studenttoolboxv3/provider/anthro_provider.dart';
 
 class EstimatedIntake extends StatefulWidget {
@@ -14,11 +12,12 @@ class EstimatedIntake extends StatefulWidget {
 }
 
 class _EstimatedIntakeState extends State<EstimatedIntake> {
+  PageController _pageController = PageController();
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<AnthroProvider>();
     return ExpansionTile(
-      backgroundColor: const Color.fromARGB(255, 188, 192, 255),
+      backgroundColor: const Color.fromARGB(255, 0, 0, 0),
       title: Text(
         'Estimated Intake',
         style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
@@ -28,8 +27,9 @@ class _EstimatedIntakeState extends State<EstimatedIntake> {
       ),
       children: [
         Container(
-          height: 400,
+          height: 330,
           child: PageView(
+            controller: _pageController,
             children: [
               ListView(
                 children: [
@@ -184,21 +184,47 @@ class _EstimatedIntakeState extends State<EstimatedIntake> {
                 ],
               ),
 
-              ListView.builder(
-                shrinkWrap: true,
-               
-                itemCount: provider.patientIntake.length,
-                itemBuilder: (context, index) => Padding(
-                  padding: const EdgeInsets.all(1.0),
-                  child: CompactFoodEaten(
-                    index: index,
-                    food: provider.patientIntake[index],
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: ListView.builder(
+                  shrinkWrap: true,
+                 
+                  itemCount: provider.patientIntake.length,
+                  itemBuilder: (context, index) => Padding(
+                    padding: const EdgeInsets.all(1.0),
+                    child: CompactFoodEaten(
+                      index: index,
+                      food: provider.patientIntake[index],
+                    ),
                   ),
                 ),
               ),
 
             ],
           ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            IconButton(
+              onPressed: () {
+                _pageController.previousPage(
+                  duration: Duration(milliseconds: 300),
+                  curve: Curves.easeIn,
+                );
+              },
+              icon: Icon(Icons.arrow_left),
+            ),
+            IconButton(
+              onPressed: () {
+                _pageController.nextPage(
+                  duration: Duration(milliseconds: 300),
+                  curve: Curves.easeIn,
+                );
+              },
+              icon: Icon(Icons.arrow_right),
+            ),
+          ],
         ),
       ],
     );

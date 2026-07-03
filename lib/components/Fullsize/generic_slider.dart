@@ -65,6 +65,13 @@ class _GenericSliderState extends State<GenericSlider> {
               if (isEdit)
                 GenericTextfield(
                   controller: widget.controller,
+                  onTapOutside: (event) {
+                    setState(() {
+                      isEdit = false;
+                      widget.controller.clear();
+                    });
+                  },
+
                   hintText: widget.textFieldHintText,
                   width: 200,
                   onSubmit: (value) {

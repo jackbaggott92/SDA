@@ -6,7 +6,8 @@ class GenericTextfield extends StatefulWidget {
   final TextEditingController controller;
   final Function(String)? onChanged;
   final Function(String)? onSubmit;
-  const GenericTextfield({super.key, required this.width, required this.hintText, required this.controller, this.onChanged, this.onSubmit});
+  final void Function(PointerDownEvent)? onTapOutside;
+  const GenericTextfield({super.key, required this.width, required this.hintText, required this.controller, this.onChanged, this.onSubmit, this.onTapOutside});
 
   @override
   State<GenericTextfield> createState() => _GenericTextfieldState();
@@ -20,6 +21,7 @@ class _GenericTextfieldState extends State<GenericTextfield> {
     return SizedBox(
       width: widget.width,
       child: TextField(
+        onTapOutside: widget.onTapOutside,
         onSubmitted: widget.onSubmit,
         controller: widget.controller,
         onChanged: widget.onChanged,

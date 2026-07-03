@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:studenttoolboxv3/components/Fullsize/hospital_food.dart';
-import 'package:studenttoolboxv3/components/Fullsize/hospital_food_eaten.dart';
-import 'package:studenttoolboxv3/components/Fullsize/weight_slider.dart';
 import 'package:provider/provider.dart';
 import 'package:studenttoolboxv3/models/food_model.dart';
 import 'package:studenttoolboxv3/provider/anthro_provider.dart';
-import 'package:studenttoolboxv3/components/generic_slider.dart';
-import 'package:studenttoolboxv3/components/Fullsize/generic_textfield.dart';
 
 class CompactFoodEaten extends StatefulWidget {
   final int index;
