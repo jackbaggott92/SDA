@@ -4,14 +4,14 @@ import 'package:studenttoolboxv3/components/Compact/compact_food_eaten.dart';
 import 'package:studenttoolboxv3/components/Compact/compact_food_item.dart';
 import 'package:studenttoolboxv3/provider/anthro_provider.dart';
 
-class EstimatedIntake extends StatefulWidget {
-  const EstimatedIntake({super.key});
+class EstimatedIntakeCard extends StatefulWidget {
+  const EstimatedIntakeCard({super.key});
 
   @override
-  State<EstimatedIntake> createState() => _EstimatedIntakeState();
+  State<EstimatedIntakeCard> createState() => _EstimatedIntakeCardState();
 }
 
-class _EstimatedIntakeState extends State<EstimatedIntake> {
+class _EstimatedIntakeCardState extends State<EstimatedIntakeCard> {
   PageController _pageController = PageController();
   @override
   Widget build(BuildContext context) {

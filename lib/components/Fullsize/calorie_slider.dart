@@ -33,7 +33,7 @@ class _CalorieSliderState extends State<CalorieSlider> {
                   activeColor: Colors.amber,
                   min: provider.lowerCalorieRange.toDouble(),
                   max: provider.upperCalorieRange.toDouble(),
-                  value: provider.safeCurrentCalories,
+                  value: provider.safeCurrentCalories.toDouble(),//changed toDouble
                   onChanged: (value) => provider.setCurrentCalories(value),
                 ),
               ),

@@ -107,7 +107,7 @@ class _CaloriesCalculatorState extends State<CaloriesCalculator> {
                       controller: selectedCalories,
                       min: provider.lowerCalorieRange.toDouble(),
                       max: provider.upperCalorieRange.toDouble(),
-                      sliderValue: provider.safeCurrentCalories,
+                      sliderValue: provider.safeCurrentCalories.toDouble(),//changed to double
                       onSliderChanged: (newCurrent) =>
                           provider.setCurrentCalories(newCurrent),
                       onLongPressDecrement: null,
@@ -172,9 +172,9 @@ class _CaloriesCalculatorState extends State<CaloriesCalculator> {
                       title: '${provider.currentProtein.toStringAsFixed(0)} g',
                       textFieldHintText: 'Select Protein',
                       controller: proteinController,
-                      min: provider.lowerProteinRange,
-                      max: provider.upperProteinRange,
-                      sliderValue: provider.safeCurrentProtein,
+                      min: provider.lowerProteinRange.toDouble(),
+                      max: provider.upperProteinRange.toDouble(),
+                      sliderValue: provider.safeCurrentProtein.toDouble(),
                       onSliderChanged: (newCurrent) =>
                           provider.setCurrentProtein(newCurrent),
                       onLongPressDecrement: null,

@@ -1,5 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:studenttoolboxv3/components/Cards/Deficit_card.dart';
+import 'package:studenttoolboxv3/components/Cards/Estimated_requirements_card.dart';
+import 'package:studenttoolboxv3/components/Cards/estimated_intake.dart';
+import 'package:studenttoolboxv3/components/Cards/height_and_weight_card.dart';
+import 'package:studenttoolboxv3/components/Cards/weight_change_card.dart';
+import 'package:studenttoolboxv3/models/cardListTile_model.dart';
 import 'package:studenttoolboxv3/models/food_model.dart';
 
 enum Gender { male, female }
@@ -209,7 +215,7 @@ class AnthroProvider extends ChangeNotifier {
   double _kg = 0;
   double get kg => double.parse(_kg.toStringAsFixed(1));
 
-  double get totalLb => _kg * 2.204623;
+  int get totalLb => (_kg * 2.204623).round();
 
   int get stones => (totalLb ~/ 14);
 
@@ -308,7 +314,7 @@ class AnthroProvider extends ChangeNotifier {
   double _previousKg = 0;
   double get previousKg => double.parse(_previousKg.toStringAsFixed(1));
 
-  double get totalPreviousLb => _previousKg * 2.204623;
+  int get totalPreviousLb => (_previousKg * 2.204623).round();
   int get previousStones => (totalPreviousLb ~/ 14);
   int get previousLb => (totalPreviousLb % 14).round();
 
@@ -410,11 +416,12 @@ class AnthroProvider extends ChangeNotifier {
   //-------------------------Weight change------------------------//
 
   double get weightChange => kg - previousKg;
-  double get percentageWeightChange => (weightChange / previousKg) * 100;
+  double get percentageWeightChange => ((weightChange / previousKg) * 100); 
 
   //-------------------------bmi---------------------------------
 
   double get bmi => kg / ((_cm / 100) * (_cm / 100));
+
 
   //------------------------------------------------------
   //--------------------------pal--------------------------
@@ -450,20 +457,20 @@ class AnthroProvider extends ChangeNotifier {
 
   int calories = 0;
   int upperCalories = 0;
-  double currentCalories = 0;
+  int currentCalories = 0;//changed to int
 
-  double get mifflinMale => (((10*_kg)+(6.25*_cm)-(5*_age)+5)*pal); 
-  double get mifflinFemale =>(((10*_kg)+(6.25*_cm)-(5*_age)-161)*pal);
+  int get mifflinMale => (((10*_kg)+(6.25*_cm)-(5*_age)+5)*pal).round(); 
+  int get mifflinFemale =>(((10*_kg)+(6.25*_cm)-(5*_age)-161)*pal).round();
 
-  double get lowerCalorieRange => (_kg * pal * calories);
-  double get upperCalorieRange {
-    final upper = _kg * pal * upperCalories;
+  int get lowerCalorieRange => (_kg * pal * calories).round();//changed from double to int and round
+  int get upperCalorieRange { //changed from double to int and round
+    final upper = (_kg * pal * upperCalories).round();//added round
     final lower = lowerCalorieRange;
 
     return upper < lower ? lower : upper;
   }
 
-  double get safeCurrentCalories =>
+  int get safeCurrentCalories =>
       currentCalories.clamp(lowerCalorieRange, upperCalorieRange);
 
   bool isMifflin = false;
@@ -497,7 +504,7 @@ class AnthroProvider extends ChangeNotifier {
   }
 
   void setCurrentCalories(double newCurrent) {
-    currentCalories = newCurrent;
+    currentCalories = newCurrent.round();
     notifyListeners();
     print(currentCalories);
   }
@@ -514,33 +521,30 @@ class AnthroProvider extends ChangeNotifier {
 
   double lowerProtein = 0;
   double upperProtein = 0;
-  double currentProtein = 0;
+  int currentProtein = 0;
 
   bool minus25Percent = false;
   bool minus35Percent = false;
 
-  double get lowerProteinRange => (minus25Percent == true) ? (lowerProtein * _kg)*0.75 : (minus35Percent==true) ? (lowerProtein*_kg)*0.65 : lowerProtein*_kg;
-  double get upperProteinRange {
-  double lower = lowerProteinRange;
+  int get lowerProteinRange => ((minus25Percent == true) ? (lowerProtein * _kg)*0.75 : (minus35Percent==true) ? (lowerProtein*_kg)*0.65 : lowerProtein*_kg).round();
+  int get upperProteinRange {
+  int lower = lowerProteinRange;
 
-  double upper = (minus25Percent)
+  int upper = ((minus25Percent)
       ? (upperProtein * _kg) * 0.75
       : (minus35Percent)
           ? (upperProtein * _kg) * 0.65
-          : upperProtein * _kg;
+          : upperProtein * _kg).round();
 
   return upper < lower ? lower : upper;
 }
   
-  double get safeCurrentProtein =>
+  int get safeCurrentProtein =>
       currentProtein.clamp(lowerProteinRange, upperProteinRange);
 
-  double get currentProteinKcal => safeCurrentProtein * 4;
+  int get currentProteinKcal => safeCurrentProtein * 4;
 
-  double get distributionKcal => upperCalorieRange - currentProteinKcal;
-  double get safeDistributionKcal => distributionKcal.clamp(0, double.infinity);
 
- 
 
   void setMinus25Percent(){
     minus25Percent = !minus25Percent;
@@ -579,7 +583,7 @@ class AnthroProvider extends ChangeNotifier {
   }
 
   void setCurrentProtein(double newCurrent) {
-    currentProtein = newCurrent;
+    currentProtein = newCurrent.round();
     notifyListeners();
     print(currentProtein);
   }
@@ -588,7 +592,7 @@ class AnthroProvider extends ChangeNotifier {
   //------------------------------fluid-----------------------------------
 
   int get fluidRecomendation => (_age > 59) ? 30 : 35;
-  double get fluidRequirement => (fluidRecomendation * _kg);
+  int get fluidRequirement => (fluidRecomendation * _kg).round();
 
   //------------------------------------------------------------------
   //------------------------------MUST---------------------------------
@@ -740,7 +744,7 @@ class AnthroProvider extends ChangeNotifier {
 
   List<FoodModel> patientIntake = [];
 
-  double get totalCalories =>
+  int get totalCalories =>
       patientIntake.fold(0, (sum, food) => sum + food.fullCalories);
   double get totalProtein =>
       patientIntake.fold(0, (sum, food) => sum + food.fullProtein);
@@ -762,4 +766,32 @@ class AnthroProvider extends ChangeNotifier {
     patientIntake = newPatientIntake;
     notifyListeners();
   }
+
+//-----------------------------------------------------------------------------------------------//
+//--------------------------------Card List------------------------------------------------//
+
+  List<CardlisttileModel> availableCardList = [
+CardlisttileModel(name: 'Height and Weight', card: HeightAndWeightCard()),
+CardlisttileModel(name: 'MUST Tool', card: WeightChangeCard()),
+CardlisttileModel(name: 'Estimated Requirements', card: EstimatedRequirementsCard()),
+CardlisttileModel(name: 'Estimated Intake', card: EstimatedIntakeCard()),
+CardlisttileModel(name: 'Deficit', card: DeficitCard())
+  ];
+
+  List<Widget> activeCardList = [
+
+  ];
+
+void addCardToActiveCardList(Widget card){
+  final newActiveCardList = [...activeCardList, card];
+  activeCardList = newActiveCardList;
+  notifyListeners();
 }
+
+void clearCardList(){
+  activeCardList = [];
+  notifyListeners();
+}
+
+}
+

@@ -51,8 +51,8 @@ class _CompactFoodItemState extends State<CompactFoodItem> {
 
                   final estimatedCalories = FoodModel(
                     name: widget.food.name,
-                    fullCalories: widget.food.fullCalories * fraction,
-                    fullProtein: widget.food.fullProtein * fraction,
+                    fullCalories: (widget.food.fullCalories * fraction).round(),
+                    fullProtein: (widget.food.fullProtein * fraction),
                     portionEaten: fraction,
                   );
 

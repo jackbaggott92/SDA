@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studenttoolboxv3/provider/anthro_provider.dart';
 
-class Deficit extends StatefulWidget {
-  const Deficit({super.key});
+class DeficitCard extends StatefulWidget {
+  const DeficitCard({super.key});
 
   @override
-  State<Deficit> createState() => _DeficitState();
+  State<DeficitCard> createState() => _DeficitCardState();
 }
 
-class _DeficitState extends State<Deficit> {
+class _DeficitCardState extends State<DeficitCard> {
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<AnthroProvider>();

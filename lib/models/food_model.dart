@@ -1,9 +1,9 @@
 class FoodModel {
   final String name;
-  final double fullCalories;
+  final int fullCalories;
   final double fullProtein;
   final double portionEaten;
-  final double volume;
+  final int volume;
   final double iddsi;
 
   FoodModel({
@@ -18,10 +18,10 @@ class FoodModel {
   FoodModel copyWith({String? name, double? fullCalories, double? fullProtein, double? portionEaten, double? volume, double? iddsi}) {
     return FoodModel(
       name: name ?? this.name,
-      fullCalories: fullCalories ?? this.fullCalories,
+      fullCalories: (fullCalories ?? this.fullCalories).round(),
       fullProtein: fullProtein ?? this.fullProtein,
       portionEaten: portionEaten ?? this.portionEaten,
-      volume: volume ?? this.volume,
+      volume: (volume ?? this.volume).round(),
       iddsi: iddsi ?? this.iddsi
       
     );

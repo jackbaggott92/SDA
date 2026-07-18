@@ -32,7 +32,7 @@ class _ProteinSliderState extends State<ProteinSlider> {
                   activeColor: Colors.blue,
                   min: provider.lowerProteinRange.toDouble(),
                   max: provider.upperProteinRange.toDouble(),
-                  value: provider.safeCurrentProtein,
+                  value: provider.safeCurrentProtein.toDouble(),
                   onChanged: (value) => provider.setCurrentProtein(value),
                 ),
               ),
