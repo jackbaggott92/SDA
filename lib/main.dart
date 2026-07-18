@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studenttoolboxv3/pages/card_stream.dart';
-import 'package:studenttoolboxv3/pages/home_page.dart';
 import 'package:studenttoolboxv3/provider/anthro_provider.dart';
 
 void main() {

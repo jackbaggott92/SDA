@@ -58,10 +58,10 @@ class _EstimatedRequirementsCardState extends State<EstimatedRequirementsCard> {
                   CompactHeightSlider(),
                   CompactWeightSlider(),
                   CompactAge(),
-                  SliderPal(),
+
                 ],
               ),
-
+                  SliderPal(),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
