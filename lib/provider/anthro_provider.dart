@@ -793,5 +793,20 @@ void clearCardList(){
   notifyListeners();
 }
 
+void removeCard(int index){
+  final newActiveCardList = [... activeCardList];
+  newActiveCardList.removeAt(index);
+  activeCardList = newActiveCardList;
+  notifyListeners();
+}
+
+bool isCardActive(Widget card) {
+  return activeCardList.contains(card);
+}
+
+void removeCardWidget(Widget card) {
+  activeCardList.remove(card);
+  notifyListeners();
+}
 }
 

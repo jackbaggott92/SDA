@@ -4,5 +4,6 @@ class CardlisttileModel {
   final String name;
   final Widget card;
 
- CardlisttileModel({required this.name, required this.card});
+
+ CardlisttileModel({required this.name, required this.card, });
 }

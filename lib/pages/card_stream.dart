@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:studenttoolboxv3/components/Cards/Estimated_requirements_card.dart';
-import 'package:studenttoolboxv3/components/Cards/Deficit_card.dart';
-import 'package:studenttoolboxv3/components/Cards/estimated_intake.dart';
-import 'package:studenttoolboxv3/components/Cards/height_and_weight_card.dart';
-import 'package:studenttoolboxv3/components/Cards/weight_change_card.dart';
+
 import 'package:studenttoolboxv3/provider/anthro_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -35,11 +31,27 @@ class _CardStreamState extends State<CardStream> {
       body: SingleChildScrollView(
         child: ListView.builder(
           shrinkWrap: true,
-          itemCount: provider.activeCardList.length,
-          itemBuilder: (context, index) {
-            return provider.activeCardList[index];
-          },
+  itemCount: provider.activeCardList.length,
+  itemBuilder: (context, index) {
+    return Dismissible(
+      key: ValueKey(provider.activeCardList[index]),
+      direction: DismissDirection.endToStart,
+      onDismissed: (direction) {
+        provider.removeCard(index);
+      },
+      background: Container(
+        color: Colors.red,
+        alignment: Alignment.centerRight,
+        padding: const EdgeInsets.only(right: 20),
+        child: const Icon(
+          Icons.delete,
+          color: Colors.white,
         ),
+      ),
+      child: provider.activeCardList[index],
+    );
+  },
+)
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color.fromARGB(255, 75, 15, 131),
@@ -51,15 +63,22 @@ class _CardStreamState extends State<CardStream> {
                 
                 itemCount: provider.availableCardList.length,
                 itemBuilder: (context, index) {
+                  final card = provider.availableCardList[index].card;
+                  final isActive = provider.isCardActive(card);
+
                   return ListTile(
                     title: Text(provider.availableCardList[index].name),
                     trailing: IconButton(
                       onPressed: () {
-                        provider.addCardToActiveCardList(
-                          provider.availableCardList[index].card,
-                        );
+                        if (isActive) {
+                          provider.removeCardWidget(card);
+                        } else {
+                          provider.addCardToActiveCardList(card);
+                        }
                       },
-                      icon: Icon(Icons.add),
+                      icon: Icon(
+                        isActive ? Icons.cancel : Icons.add,
+                      ),
                     ),
                   );
                 },

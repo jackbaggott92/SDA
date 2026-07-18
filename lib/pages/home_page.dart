@@ -23,41 +23,6 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.all(8.0),
             child: Center(
               child: ElevatedButton(
-                onPressed: () => Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => BmiAndConversionPage(),
-                  ),
-                ),
-                child: Text('BMI and Conversion'),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Center(
-              child: ElevatedButton(
-                onPressed: () => Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => WeightChangePage()),
-                ),
-                child: Text('MUST'),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Center(
-              child: ElevatedButton(
-                onPressed: () => Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => CaloriesCalculator()),
-                ),
-                child: Text('Calories Calculator'),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Center(
-              child: ElevatedButton(
                 onPressed: () => Navigator.of(
                   context,
                 ).push(MaterialPageRoute(builder: (context) => CardStream())),
@@ -65,17 +30,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-                    Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Center(
-              child: ElevatedButton(
-                onPressed: () => Navigator.of(
-                  context,
-                ).push(MaterialPageRoute(builder: (context) => IntakeEstimater())),
-                child: Text('Intake Estimater'),
-              ),
-            ),
-          ),
+
         ],
       ),
     );
