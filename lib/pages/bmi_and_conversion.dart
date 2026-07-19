@@ -33,9 +33,10 @@ class _BmiAndConversionPageState extends State<BmiAndConversionPage> {
                 content: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                     Text('ONLY WORKING ON CURRENT WEIGHT NOT ACTUAL WEIGHT', style: TextStyle(fontSize: 20),),
                     Text('BMI: kg / ((cm / 100) * (cm / 100))'),
                     Text(
-                      '      = ${provider.kg}kg / (${(provider.cm / 100)})m * (${(provider.cm / 100)})m',
+                      '      = ${provider.currentkg}kg / (${(provider.cm / 100)})m * (${(provider.cm / 100)})m',
                     ),
                     Text('      = ${provider.bmi}kg/m2'),
                   ],

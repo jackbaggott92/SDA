@@ -22,7 +22,7 @@ class _WeightChangePageState extends State<WeightChangePage> {
     final provider = context.watch<AnthroProvider>();
     return Scaffold(
       appBar: AppBar(
-        title: Text('MUST Calculator'),
+        title: Text('MUST Calculator (CURRENT WEIGHT)'),
         actions: [
           IconButton(onPressed: (){provider.clearHeight(); provider.clearWeight(); provider.clearPreviousWeight(); provider.clearMust();}, icon: Icon(Icons.refresh)),
           IconButton(
@@ -33,7 +33,7 @@ class _WeightChangePageState extends State<WeightChangePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Weight Change = ${provider.kg}kg - ${provider.previousKg}kg',
+                      'Weight Change = ${provider.currentkg}kg - ${provider.previousKg}kg',
                     ),
                     Text('= ${provider.weightChange.toStringAsFixed(1)}kg'),
                     Text(''),

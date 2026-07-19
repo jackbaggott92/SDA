@@ -29,11 +29,12 @@ class _WeightChangeCardState extends State<WeightChangeCard> {
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
         ),
         subtitle: Text(
-          '${provider.previousKg}kg ----> ${(provider.kg).toStringAsFixed(1)}, (${(provider.weightChange).toStringAsFixed(1)}kg, ${(provider.percentageWeightChange).toStringAsFixed(1)}%)\nMUST Score: ${provider.mustScore}',
+          '${provider.previousKg}kg ----> ${(provider.currentkg).toStringAsFixed(1)}, (${(provider.weightChange).toStringAsFixed(1)}kg, ${(provider.percentageWeightChange).toStringAsFixed(1)}%)\nMUST Score: ${provider.mustScore}',
         ),
         children: [
           Column(
             children: [
+               Text('ONLY WORKING ON CURRENT WEIGHT NOT ACTUAL WEIGHT', style: TextStyle(fontSize: 20),),
               CompactHeightSlider(),
               CompactWeightSlider(),
               CompactGenericSlider(

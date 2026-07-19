@@ -52,8 +52,9 @@ class _CaloriesCalculatorState extends State<CaloriesCalculator> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+             Text('ONLY WORKING ON CURRENT WEIGHT NOT ACTUAL WEIGHT', style: TextStyle(fontSize: 20),),
             WeightSlider(),
-            Text('weight: ${provider.kg}kg'),
+            Text('weight: ${provider.currentkg}kg'),
             SliderPal(),
             Text('PAL: ${provider.pal}'),
             Padding(
@@ -191,8 +192,8 @@ class _CaloriesCalculatorState extends State<CaloriesCalculator> {
                 ),
               ),
             ),
-            Text('Fluid: >60 yo ${(provider.kg * 30).toStringAsFixed(0)}ml'),
-            Text('Fluid: <60 yo ${(provider.kg * 35).toStringAsFixed(0)}ml'),
+            Text('Fluid: >60 yo ${(provider.currentkg * 30).toStringAsFixed(0)}ml'),
+            Text('Fluid: <60 yo ${(provider.currentkg * 35).toStringAsFixed(0)}ml'),
           ],
         ),
       ),

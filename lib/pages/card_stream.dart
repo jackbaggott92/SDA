@@ -28,30 +28,28 @@ class _CardStreamState extends State<CardStream> {
           }, icon: Icon(Icons.cancel_presentation))
         ],
       ),
-      body: SingleChildScrollView(
-        child: ListView.builder(
-          shrinkWrap: true,
-  itemCount: provider.activeCardList.length,
-  itemBuilder: (context, index) {
-    return Dismissible(
-      key: ValueKey(provider.activeCardList[index]),
-      direction: DismissDirection.endToStart,
-      onDismissed: (direction) {
-        provider.removeCard(index);
-      },
-      background: Container(
-        color: Colors.red,
-        alignment: Alignment.centerRight,
-        padding: const EdgeInsets.only(right: 20),
-        child: const Icon(
-          Icons.delete,
-          color: Colors.white,
-        ),
+      body: ListView.builder(
+        shrinkWrap: true,
+        itemCount: provider.activeCardList.length,
+        itemBuilder: (context, index) {
+          return Dismissible(
+            key: ValueKey(provider.activeCardList[index]),
+            direction: DismissDirection.endToStart,
+            onDismissed: (direction) {
+      provider.removeCard(index);
+            },
+            background: Container(
+      color: Colors.red,
+      alignment: Alignment.centerRight,
+      padding: const EdgeInsets.only(right: 20),
+      child: const Icon(
+        Icons.delete,
+        color: Colors.white,
       ),
-      child: provider.activeCardList[index],
-    );
-  },
-)
+            ),
+            child: provider.activeCardList[index],
+          );
+        },
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color.fromARGB(255, 75, 15, 131),

@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:studenttoolboxv3/components/Cards/Deficit_card.dart';
 import 'package:studenttoolboxv3/components/Cards/Estimated_requirements_card.dart';
+import 'package:studenttoolboxv3/components/Cards/Oedema_Ascites_Modifier.dart';
 import 'package:studenttoolboxv3/components/Cards/estimated_intake.dart';
 import 'package:studenttoolboxv3/components/Cards/height_and_weight_card.dart';
 import 'package:studenttoolboxv3/components/Cards/weight_change_card.dart';
@@ -41,7 +42,7 @@ class AnthroProvider extends ChangeNotifier {
   }
 
   void setAge(int newAge) {
-    if (newAge > 18 && newAge <121) {
+    if (newAge > 18 && newAge < 121) {
       _age = newAge;
     } else {
       return;
@@ -93,8 +94,8 @@ class AnthroProvider extends ChangeNotifier {
       }
     }
   }
-  
-  void stopDecrementingAge(){
+
+  void stopDecrementingAge() {
     _isDecrementingAge = false;
   }
 
@@ -212,10 +213,19 @@ class AnthroProvider extends ChangeNotifier {
   Weight _weightUnits = Weight.kg;
   Weight get weightUnits => _weightUnits;
 
-  double _kg = 0;
-  double get kg => double.parse(_kg.toStringAsFixed(1));
+  double _currentkg = 0;
+  double get currentkg => double.parse(_currentkg.toStringAsFixed(1));
 
-  int get totalLb => (_kg * 2.204623).round();
+  double _oedema = 0;
+  double get oedema => double.parse(_oedema.toStringAsFixed(1));
+
+  double _ascites = 0;
+  double get ascites => double.parse(_ascites.toStringAsFixed(1));
+
+  double get actualKg =>
+      double.parse((currentkg - oedema - ascites).toStringAsFixed(1));
+
+  int get totalLb => (_currentkg * 2.204623).round();
 
   int get stones => (totalLb ~/ 14);
 
@@ -232,12 +242,12 @@ class AnthroProvider extends ChangeNotifier {
   }
 
   void clearWeight() {
-    _kg = 0;
+    _currentkg = 0;
     notifyListeners();
   }
 
   void setWeight(double newWeight) {
-    _kg = double.parse(newWeight.clamp(0, 200).toStringAsFixed(1));
+    _currentkg = double.parse(newWeight.clamp(0, 200).toStringAsFixed(1));
     notifyListeners();
   }
 
@@ -251,7 +261,7 @@ class AnthroProvider extends ChangeNotifier {
 
   String get displayWeight {
     if (_weightUnits == Weight.kg) {
-      return '${kg.toStringAsFixed(1)} kg';
+      return '${currentkg.toStringAsFixed(1)} kg';
     } else if (_weightUnits == Weight.st) {
       return '$stones st $lb lb';
     } else {
@@ -260,8 +270,8 @@ class AnthroProvider extends ChangeNotifier {
   }
 
   void incrementWeight() {
-    if (_kg < 200) {
-      _kg = double.parse((_kg + stepSize).toStringAsFixed(1));
+    if (_currentkg < 200) {
+      _currentkg = double.parse((_currentkg + stepSize).toStringAsFixed(1));
     }
 
     notifyListeners();
@@ -273,8 +283,8 @@ class AnthroProvider extends ChangeNotifier {
     _isIncrementing = true;
     while (_isIncrementing) {
       await Future.delayed(const Duration(milliseconds: 50));
-      if (_kg < 200) {
-        _kg = double.parse((_kg + stepSize).toStringAsFixed(1));
+      if (_currentkg < 200) {
+        _currentkg = double.parse((_currentkg + stepSize).toStringAsFixed(1));
         notifyListeners();
       }
     }
@@ -285,7 +295,7 @@ class AnthroProvider extends ChangeNotifier {
   }
 
   void decrementWeight() {
-    _kg = double.parse(((_kg - stepSize).clamp(0, 200)).toStringAsFixed(1));
+    _currentkg = double.parse(((_currentkg - stepSize).clamp(0, 200)).toStringAsFixed(1));
     notifyListeners();
   }
 
@@ -295,8 +305,8 @@ class AnthroProvider extends ChangeNotifier {
     _isDecrementing = true;
     while (_isDecrementing) {
       await Future.delayed(const Duration(milliseconds: 50));
-      if (_kg > 0) {
-        _kg = double.parse(((_kg - stepSize).clamp(0, 200)).toStringAsFixed(1));
+      if (_currentkg > 0) {
+        _currentkg = double.parse(((_currentkg - stepSize).clamp(0, 200)).toStringAsFixed(1));
         notifyListeners();
       }
     }
@@ -304,6 +314,16 @@ class AnthroProvider extends ChangeNotifier {
 
   void stopDecrementingWeight() {
     _isDecrementing = false;
+  }
+
+  void setOedema(double newOedema) {
+    _oedema = newOedema;
+    notifyListeners();
+  }
+
+  void setAscites(double newAscites) {
+    _ascites = newAscites;
+    notifyListeners();
   }
 
   //--------------------------previous weight--------------------------
@@ -415,13 +435,14 @@ class AnthroProvider extends ChangeNotifier {
   //---------------------------------------------------------------
   //-------------------------Weight change------------------------//
 
-  double get weightChange => kg - previousKg;
-  double get percentageWeightChange => ((weightChange / previousKg) * 100); 
+  double get weightChange => currentkg - previousKg;
+  double get percentageWeightChange => ((weightChange / previousKg) * 100);
 
   //-------------------------bmi---------------------------------
 
-  double get bmi => kg / ((_cm / 100) * (_cm / 100));
+  double get bmi => currentkg / ((_cm / 100) * (_cm / 100));
 
+  double get adjustedBmi => double.parse((actualKg / ((_cm / 100) * (_cm / 100))).toStringAsFixed(1));
 
   //------------------------------------------------------
   //--------------------------pal--------------------------
@@ -457,14 +478,18 @@ class AnthroProvider extends ChangeNotifier {
 
   int calories = 0;
   int upperCalories = 0;
-  int currentCalories = 0;//changed to int
+  int currentCalories = 0; //changed to int
 
-  int get mifflinMale => (((10*_kg)+(6.25*_cm)-(5*_age)+5)*pal).round(); 
-  int get mifflinFemale =>(((10*_kg)+(6.25*_cm)-(5*_age)-161)*pal).round();
+  int get mifflinMale =>
+      (((10 * actualKg) + (6.25 * _cm) - (5 * _age) + 5) * pal).round();
+  int get mifflinFemale =>
+      (((10 * actualKg) + (6.25 * _cm) - (5 * _age) - 161) * pal).round();
 
-  int get lowerCalorieRange => (_kg * pal * calories).round();//changed from double to int and round
-  int get upperCalorieRange { //changed from double to int and round
-    final upper = (_kg * pal * upperCalories).round();//added round
+  int get lowerCalorieRange =>
+      (actualKg * pal * calories).round(); //changed from double to int and round
+  int get upperCalorieRange {
+    //changed from double to int and round
+    final upper = (actualKg * pal * upperCalories).round(); //added round
     final lower = lowerCalorieRange;
 
     return upper < lower ? lower : upper;
@@ -509,12 +534,10 @@ class AnthroProvider extends ChangeNotifier {
     print(currentCalories);
   }
 
-  void setMifflin(){
+  void setMifflin() {
     isMifflin = !isMifflin;
     notifyListeners();
   }
-
-  
 
   //----------------------------------------------------------------------------
   //----------------------------------Protein-------------------------------------
@@ -526,35 +549,41 @@ class AnthroProvider extends ChangeNotifier {
   bool minus25Percent = false;
   bool minus35Percent = false;
 
-  int get lowerProteinRange => ((minus25Percent == true) ? (lowerProtein * _kg)*0.75 : (minus35Percent==true) ? (lowerProtein*_kg)*0.65 : lowerProtein*_kg).round();
+  int get lowerProteinRange =>
+      ((minus25Percent == true)
+              ? (lowerProtein * actualKg) * 0.75
+              : (minus35Percent == true)
+              ? (lowerProtein * actualKg) * 0.65
+              : lowerProtein * actualKg)
+          .round();
   int get upperProteinRange {
-  int lower = lowerProteinRange;
+    int lower = lowerProteinRange;
 
-  int upper = ((minus25Percent)
-      ? (upperProtein * _kg) * 0.75
-      : (minus35Percent)
-          ? (upperProtein * _kg) * 0.65
-          : upperProtein * _kg).round();
+    int upper =
+        ((minus25Percent)
+                ? (upperProtein * actualKg) * 0.75
+                : (minus35Percent)
+                ? (upperProtein * actualKg) * 0.65
+                : upperProtein * actualKg)
+            .round();
 
-  return upper < lower ? lower : upper;
-}
-  
+    return upper < lower ? lower : upper;
+  }
+
   int get safeCurrentProtein =>
       currentProtein.clamp(lowerProteinRange, upperProteinRange);
 
   int get currentProteinKcal => safeCurrentProtein * 4;
 
-
-
-  void setMinus25Percent(){
+  void setMinus25Percent() {
     minus25Percent = !minus25Percent;
     minus35Percent = false;
     notifyListeners();
   }
 
-  void setMinus35Percent(){
+  void setMinus35Percent() {
     minus35Percent = !minus35Percent;
-    minus25Percent=false;
+    minus25Percent = false;
     notifyListeners();
   }
 
@@ -564,20 +593,26 @@ class AnthroProvider extends ChangeNotifier {
     currentProtein = 0;
     minus25Percent = false;
     minus35Percent = false;
-    
+
     notifyListeners();
   }
 
   void setLowerProtein(double newProtein) {
     lowerProtein = newProtein;
-    currentProtein = safeCurrentProtein.clamp(lowerProteinRange, upperProteinRange);
+    currentProtein = safeCurrentProtein.clamp(
+      lowerProteinRange,
+      upperProteinRange,
+    );
     notifyListeners();
     print(lowerProtein);
   }
 
   void setUpperProtein(double newProtein) {
     upperProtein = newProtein;
-    currentProtein = safeCurrentProtein.clamp(lowerProteinRange, upperProteinRange);
+    currentProtein = safeCurrentProtein.clamp(
+      lowerProteinRange,
+      upperProteinRange,
+    );
     notifyListeners();
     print(upperProtein);
   }
@@ -592,7 +627,7 @@ class AnthroProvider extends ChangeNotifier {
   //------------------------------fluid-----------------------------------
 
   int get fluidRecomendation => (_age > 59) ? 30 : 35;
-  int get fluidRequirement => (fluidRecomendation * _kg).round();
+  int get fluidRequirement => (fluidRecomendation * actualKg).round();
 
   //------------------------------------------------------------------
   //------------------------------MUST---------------------------------
@@ -619,7 +654,7 @@ class AnthroProvider extends ChangeNotifier {
   double get percentageWeightLoss {
     if (previousKg == 0) return 0;
 
-    final loss = ((previousKg - kg) / previousKg) * 100;
+    final loss = ((previousKg - currentkg) / previousKg) * 100;
 
     return loss < 0 ? 0 : loss;
   }
@@ -767,46 +802,50 @@ class AnthroProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-//-----------------------------------------------------------------------------------------------//
-//--------------------------------Card List------------------------------------------------//
+  //-----------------------------------------------------------------------------------------------//
+  //--------------------------------Card List------------------------------------------------//
 
   List<CardlisttileModel> availableCardList = [
-CardlisttileModel(name: 'Height and Weight', card: HeightAndWeightCard()),
-CardlisttileModel(name: 'MUST Tool', card: WeightChangeCard()),
-CardlisttileModel(name: 'Estimated Requirements', card: EstimatedRequirementsCard()),
-CardlisttileModel(name: 'Estimated Intake', card: EstimatedIntakeCard()),
-CardlisttileModel(name: 'Deficit', card: DeficitCard())
+    CardlisttileModel(name: 'Height and Weight', card: HeightAndWeightCard()),
+    CardlisttileModel(
+      name: 'Oedema and Ascites',
+      card: OedemaAscitesModifierCard(),
+    ),
+    CardlisttileModel(name: 'MUST Tool', card: WeightChangeCard()),
+    CardlisttileModel(
+      name: 'Estimated Requirements',
+      card: EstimatedRequirementsCard(),
+    ),
+    CardlisttileModel(name: 'Estimated Intake', card: EstimatedIntakeCard()),
+    CardlisttileModel(name: 'Deficit', card: DeficitCard()),
   ];
 
-  List<Widget> activeCardList = [
+  List<Widget> activeCardList = [];
 
-  ];
+  void addCardToActiveCardList(Widget card) {
+    final newActiveCardList = [...activeCardList, card];
+    activeCardList = newActiveCardList;
+    notifyListeners();
+  }
 
-void addCardToActiveCardList(Widget card){
-  final newActiveCardList = [...activeCardList, card];
-  activeCardList = newActiveCardList;
-  notifyListeners();
+  void clearCardList() {
+    activeCardList = [];
+    notifyListeners();
+  }
+
+  void removeCard(int index) {
+    final newActiveCardList = [...activeCardList];
+    newActiveCardList.removeAt(index);
+    activeCardList = newActiveCardList;
+    notifyListeners();
+  }
+
+  bool isCardActive(Widget card) {
+    return activeCardList.contains(card);
+  }
+
+  void removeCardWidget(Widget card) {
+    activeCardList.remove(card);
+    notifyListeners();
+  }
 }
-
-void clearCardList(){
-  activeCardList = [];
-  notifyListeners();
-}
-
-void removeCard(int index){
-  final newActiveCardList = [... activeCardList];
-  newActiveCardList.removeAt(index);
-  activeCardList = newActiveCardList;
-  notifyListeners();
-}
-
-bool isCardActive(Widget card) {
-  return activeCardList.contains(card);
-}
-
-void removeCardWidget(Widget card) {
-  activeCardList.remove(card);
-  notifyListeners();
-}
-}
-

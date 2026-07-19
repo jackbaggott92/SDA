@@ -31,7 +31,7 @@ class _WeightSliderState extends State<WeightSlider> {
             textFieldHintText: 'Enter current weight',
             min: 0,
             max: 200,
-            sliderValue: provider.kg,
+            sliderValue: provider.currentkg,
             onSliderChanged: (newWeight) => provider.setWeight(newWeight),
             onLongPressDecrement: provider.startDecrementingWeight,
             onLongPressDecrementRelease: provider.stopDecrementingWeight,

@@ -33,6 +33,7 @@ class _IntakeEstimaterState extends State<IntakeEstimater> {
       body: ListView(
         padding: EdgeInsets.zero,
         children: [
+          Text('ONLY WORKING ON CURRENT WEIGHT NOT ACTUAL WEIGHT', style: TextStyle(fontSize: 20),),
           ExpansionTile(
             title: const Text('Menu'),
             children: [
@@ -224,8 +225,8 @@ class _IntakeEstimaterState extends State<IntakeEstimater> {
             ),
             children: [
               ExpansionTile(
-                title: Text('Weight'),
-                subtitle: Text('Weight: ${provider.kg.toStringAsFixed(1)}kg'),
+                title: Text((provider.oedema==0&&provider.ascites==0)?'Weight':'Actual Weight'),
+                subtitle: Text('Weight: ${provider.actualKg.toStringAsFixed(1)}kg'),
                 children: [WeightSlider()],
               ),
               ExpansionTile(

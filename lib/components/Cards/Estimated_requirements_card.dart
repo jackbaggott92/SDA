@@ -43,7 +43,7 @@ class _EstimatedRequirementsCardState extends State<EstimatedRequirementsCard> {
                 'Calorie Range: ${provider.lowerCalorieRange.toStringAsFixed(0)}-${provider.upperCalorieRange.toStringAsFixed(0)} kcal\nProtein Range: ${provider.lowerProteinRange.toStringAsFixed(0)}-${provider.upperProteinRange.toStringAsFixed(0)} g\nFluid(60/60+): ${provider.fluidRequirement.toStringAsFixed(0)}ml ',
               )
             : Text(
-                'MSJ Calories: ${(provider.gender == Gender.male) ? (provider.mifflinMale).toStringAsFixed(0) : (provider.mifflinFemale).toStringAsFixed(0)}kcal\nProtein Range: ${provider.lowerProteinRange.toStringAsFixed(0)}-${provider.upperProteinRange.toStringAsFixed(0)} g\nFluid(60/60+): ${(provider.kg * 35).toStringAsFixed(0)}/${(provider.kg * 30).toStringAsFixed(0)}ml ',
+                'MSJ Calories: ${(provider.gender == Gender.male) ? (provider.mifflinMale).toStringAsFixed(0) : (provider.mifflinFemale).toStringAsFixed(0)}kcal\nProtein Range: ${provider.lowerProteinRange.toStringAsFixed(0)}-${provider.upperProteinRange.toStringAsFixed(0)} g\nFluid(60/60+): ${(provider.actualKg * 35).toStringAsFixed(0)}/${(provider.actualKg * 30).toStringAsFixed(0)}ml ',
               ),
 
         children: [
@@ -52,7 +52,7 @@ class _EstimatedRequirementsCardState extends State<EstimatedRequirementsCard> {
               ExpansionTile(
                 title: Text('Details'),
                 subtitle: Text(
-                  '${(provider.cm).toStringAsFixed(0)} cm, ${(provider.kg).toStringAsFixed(1)}kg, BMI: ${(provider.bmi).toStringAsFixed(2)}kg/m2, Age: ${provider.age}, PAL: ${provider.pal}',
+                  '${(provider.cm).toStringAsFixed(0)} cm, ${(provider.actualKg).toStringAsFixed(1)}kg, BMI: ${(provider.bmi).toStringAsFixed(2)}kg/m2, Age: ${provider.age}, PAL: ${provider.pal}',
                 ),
                 children: [
                   CompactHeightSlider(),
@@ -155,8 +155,8 @@ class _EstimatedRequirementsCardState extends State<EstimatedRequirementsCard> {
                               padding: const EdgeInsets.only(left: 8.0),
                               child: Text(
                                 provider.gender == Gender.male
-                                    ? 'Men: \n(10 x ${provider.kg}kg) + (6.25 x ${provider.cm}cm) - (5 x ${provider.age}yo) + 5 * ${provider.pal} PAL'
-                                    : 'Women: \n(10 x ${provider.kg}kg) + (6.25 x ${provider.cm}cm) - (5 x ${provider.age}yo) - 161 * ${provider.pal} PAL',
+                                    ? 'Men: \n(10 x ${provider.actualKg}kg) + (6.25 x ${provider.cm}cm) - (5 x ${provider.age}yo) + 5 * ${provider.pal} PAL'
+                                    : 'Women: \n(10 x ${provider.actualKg}kg) + (6.25 x ${provider.cm}cm) - (5 x ${provider.age}yo) - 161 * ${provider.pal} PAL',
                               ),
                             ),
                           ],
